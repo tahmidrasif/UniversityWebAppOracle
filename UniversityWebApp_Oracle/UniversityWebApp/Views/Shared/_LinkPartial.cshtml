@@ -1,0 +1,42 @@
+﻿@using UniversityWebApp.Areas.Admin.Models
+@{
+    ViewBag.Title = "_LinkPartial";
+    User aUser = (User)Session["User"];
+
+}
+@{
+    if (aUser != null)
+    {
+        var user = "Hello " + aUser.UserName + "!";
+        var userType = aUser.UserType;
+
+        if (userType == "Admin")
+        {
+            <li>@Html.ActionLink(user, "Index", "Home", new { area = "Admin" }, null)</li>
+
+        }
+        if (userType == "Student")
+        {
+            <li>@Html.ActionLink(user, "Index", "Home", new { area = "Student" }, null)</li>
+
+        }
+        if (userType == "Teacher")
+        {
+            <li>@Html.ActionLink(user, "Index", "Home", new { area = "Admin" }, null)</li>
+
+        }
+        if (userType == "DeptHead")
+        {
+            <li>@Html.ActionLink(user, "Index", "Home", new { area = "Admin" }, null)</li>
+
+        }
+        <li>@Html.ActionLink("Log Out", "LogOut", "Home", new { area = "" }, null)</li>
+
+    }
+
+    else
+    {
+        <li>@Html.ActionLink("Log In", "LogIn", "Home")</li>
+    }
+
+}
