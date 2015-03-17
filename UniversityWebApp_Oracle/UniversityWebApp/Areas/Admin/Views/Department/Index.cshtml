@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+
+<div id="DepartmentTableContainer">
+
+</div>
+
+@section Scripts{
+ 
+    <script type="text/javascript">
+
+  
+        $(function () {
+
+            $('#DepartmentTableContainer').jtable({
+                title: 'Department Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/Department/List',
+                    createAction: '/Department/Create',
+                    updateAction: '/Department/Edit',
+                    deleteAction: '/Department/Delete'
+                },
+
+                fields: {
+                    DepartmentId: {
+                        key: true,
+                        list: false
+                    },
+                    Name: {
+                        title: 'Name',
+                        width: '40%'
+                    },
+                    Code: {
+                        title: 'Code',
+                        width: '20%'
+                    },
+              
+
+                }
+            });
+            $('#DepartmentTableContainer').jtable('load');
+        });
+
+
+
+    </script>
+}
+
