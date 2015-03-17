@@ -63,3 +63,68 @@ Creating Department Table
 -- /
 -- 
 -- 
+
+
+
+
+
+CREATE TABLE COURSE (
+"COURSEID" INT NOT NULL ,
+"NAME" VARCHAR2(255) NULL ,
+"CODE" VARCHAR2(255) NULL ,
+"CREDIT" FLOAT NULL ,
+"DEPARTMENTID" INT NULL ,
+PRIMARY KEY ("COURSEID")
+)
+NOCOMPRESS
+;
+-- CREATE SEQUENCE COURSE_sequence
+-- START WITH 1
+-- INCREMENT BY 1;
+
+-- 
+-- CREATE OR REPLACE TRIGGER COURSE_trigger
+-- BEFORE INSERT
+-- ON COURSE
+-- REFERENCING NEW AS NEW
+-- FOR EACH ROW
+-- BEGIN
+-- SELECT COURSE_sequence.nextval INTO :NEW.COURSEID FROM dual;
+-- END;
+-- /
+-- -- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

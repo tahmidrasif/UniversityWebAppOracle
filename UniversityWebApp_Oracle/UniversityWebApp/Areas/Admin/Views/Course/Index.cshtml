@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div id="CourseTableContainer">
+
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#CourseTableContainer').jtable({
+                title: 'Department Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/Course/List',
+                    createAction: '/Course/Create',
+                    updateAction: '/Course/Edit',
+                    deleteAction: '/Course/Delete'
+                },
+
+                fields: {
+                    CourseId: {
+                        key: true,
+                        list: false
+                    },
+                    Name: {
+                        title: 'Name',
+                        width: '40%'
+                    },
+                    Code: {
+                        title: 'Code',
+                        width: '20%'
+                    },
+                    Credit: {
+                        title: 'Credit',
+                        width: '20%'
+                    },
+                    DepartmentId: {
+                        title: 'Department Name',
+                        options: '/Course/GetDepartment',
+                        width: '20%'
+                    },
+
+
+                }
+            });
+            $('#CourseTableContainer').jtable('load');
+        });
+
+
+
+    </script>
+}

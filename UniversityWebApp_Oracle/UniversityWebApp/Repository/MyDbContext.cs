@@ -25,5 +25,7 @@ namespace UniversityWebApp.Repository
         public DbSet<User> Users { get; set; }
 
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Department> Departments { get; set; }
+
+        public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Course> Courses { get; set; }
     }
 }

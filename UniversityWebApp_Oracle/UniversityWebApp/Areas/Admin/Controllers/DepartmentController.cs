@@ -51,11 +51,11 @@ namespace UniversityWebApp.Areas.Admin.Controllers
 
 
           [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(int DepartmentId)
         {
             try
             {
-                aDepartmentGateway.Delete(id);
+                aDepartmentGateway.Delete(DepartmentId);
                 return Json(new { Result = "OK" });
             }
             catch (Exception ex)
