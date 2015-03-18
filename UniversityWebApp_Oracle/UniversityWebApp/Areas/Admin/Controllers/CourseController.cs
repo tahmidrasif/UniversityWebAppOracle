@@ -12,27 +12,40 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
-       // private MyDbContext db = new MyDbContext();
         CourseGateway aCourseGateway=new CourseGateway();
+        DepartmentGateway aDepartmentGateway=new DepartmentGateway();
 
         // GET: /Admin/Course/
         public ActionResult Index()
         {
+            ViewBag.DepartmentId = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name");
             return View();
         }
 
 
-        public JsonResult List(int jtStartIndex, int jtPageSize)
+        public JsonResult List(string name, int jtStartIndex, int jtPageSize, int departmentId = 0)
         {
+            
             try
             {
                 var courses = aCourseGateway.GetAll();
-                var courseCount = courses.Count;
-                var courseList = courses.Distinct().Skip(jtStartIndex).Take(jtPageSize);
-                return Json(new { Result = "OK", Records = courseList, TotalRecordCount = courseCount });
-                //Higlighted text are for pagination
+                if (name == "" && departmentId==0)
+                {
+                    var courseCount = courses.Count;
+                    var courseList = courses.Distinct().Skip(jtStartIndex).Take(jtPageSize);
+                    return Json(new { Result = "OK", Records = courseList, TotalRecordCount = courseCount });
+                    //Higlighted text are for pagination
+                }
+                else
+                {
+                    var filterdcourses = courses.Where(x => x.Name == name || x.DepartmentId == departmentId).Distinct().Skip(jtStartIndex).Take(jtPageSize).ToList();
+                    var filterdcoursescount = filterdcourses.Count;
+                    return Json(new { Result = "OK", Records = filterdcourses, TotalRecordCount = filterdcoursescount });
+                }
+                
             }
             catch (Exception ex)
             {

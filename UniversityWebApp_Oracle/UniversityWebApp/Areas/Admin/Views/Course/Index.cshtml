@@ -6,6 +6,14 @@
 
 <h2>Index</h2>
 
+<div class="filtering">
+    <form>
+        Name: <input type="text" name="name" id="name" />
+        Department: @Html.DropDownList("DepartmentId",string.Empty)
+        <button type="submit" id="LoadRecordsButton">Load records</button>
+    </form>
+</div>
+
 <div id="CourseTableContainer">
 
 </div>
@@ -18,7 +26,7 @@
         $(function () {
 
             $('#CourseTableContainer').jtable({
-                title: 'Department Table',
+                title: 'Course Table',
                 paging: true,
                 pageSize: 10,
                 sorting: true,
@@ -57,9 +65,17 @@
 
                 }
             });
-            $('#CourseTableContainer').jtable('load');
-        });
+            $('#LoadRecordsButton').click(function (e) {
+                e.preventDefault();
+                $('#CourseTableContainer').jtable('load', {
+                    name: $('#name').val(),
+                    departmentId: $('#DepartmentId').val()
+                });
+            });
 
+            //Load all records when page is first shown
+            $('#LoadRecordsButton').click();
+        });
 
 
     </script>

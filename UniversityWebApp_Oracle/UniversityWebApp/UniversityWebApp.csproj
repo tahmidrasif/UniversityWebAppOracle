@@ -341,16 +341,7 @@
     <Content Include="Areas\Student\Views\web.config" />
     <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Student\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Department\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Department\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Department\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Department\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Department\DepartmentList.cshtml" />
-    <Content Include="Areas\Admin\Views\Course\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Course\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Course\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Course\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Course\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
