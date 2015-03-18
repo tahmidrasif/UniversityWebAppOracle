@@ -6,7 +6,12 @@
 <h2>Index</h2>
 
 
-
+<div class="filtering">
+    <form>
+        <label>Name</label> <input type="text" name="name" id="name" />
+        <button type="submit" id="LoadRecordsButton">Search</button>
+    </form>
+</div>
 <div id="DepartmentTableContainer">
 
 </div>
@@ -49,9 +54,16 @@
 
                 }
             });
-            $('#DepartmentTableContainer').jtable('load');
-        });
+            $('#LoadRecordsButton').click(function (e) {
+                e.preventDefault();
+                $('#DepartmentTableContainer').jtable('load', {
+                    name: $('#name').val(),
+                });
+            });
 
+            //Load all records when page is first shown
+            $('#LoadRecordsButton').click();
+        });
 
 
     </script>

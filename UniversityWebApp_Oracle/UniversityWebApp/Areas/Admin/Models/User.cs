@@ -27,6 +27,7 @@ namespace UniversityWebApp.Areas.Admin.Models
         public string Email { get; set; }
 
         [Required]
+        [DisplayName("User Type")]
         public string UserType { get; set; }
     }
 }

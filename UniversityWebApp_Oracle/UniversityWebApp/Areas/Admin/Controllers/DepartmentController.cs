@@ -17,15 +17,26 @@ namespace UniversityWebApp.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult List(int jtStartIndex, int jtPageSize)
+        public JsonResult List(string name,int jtStartIndex, int jtPageSize)
         {
             try
             {
                 var departments = aDepartmentGateway.GetAll();
-                var departmentCount = departments.Count;
-                var departmentList = departments.Distinct().Skip(jtStartIndex).Take(jtPageSize);
-                return Json(new { Result = "OK", Records = departmentList, TotalRecordCount = departmentCount });
-                //Higlighted text are for pagination
+                if (name=="")
+                {
+                    var departmentCount = departments.Count;
+                    var departmentList = departments.Distinct().Skip(jtStartIndex).Take(jtPageSize);
+                    return Json(new { Result = "OK", Records = departmentList, TotalRecordCount = departmentCount });
+                    //Higlighted text are for pagination
+                }
+                else
+                {
+                    var filterdDepartments = departments.Where(x => x.Name == name).Distinct().Skip(jtStartIndex).Take(jtPageSize).ToList();
+                    var filterdDeptcount = filterdDepartments.Count;
+                    return Json(new { Result = "OK", Records = filterdDepartments, TotalRecordCount = filterdDeptcount });
+                }
+                
+              
             }
             catch (Exception ex)
             {

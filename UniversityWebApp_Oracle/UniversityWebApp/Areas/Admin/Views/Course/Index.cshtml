@@ -8,8 +8,8 @@
 
 <div class="filtering">
     <form>
-        Name: <input type="text" name="name" id="name" />
-        Department: @Html.DropDownList("DepartmentId",string.Empty)
+        <label>Name</label> <input type="text" name="name" id="name" />
+        <label>Department</label> @Html.DropDownList("DepartmentId",string.Empty)
         <button type="submit" id="LoadRecordsButton">Load records</button>
     </form>
 </div>

@@ -1,15 +1,157 @@
-﻿@model IEnumerable<UniversityWebApp.Areas.Admin.Models.User>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
+
+
+<div class="filtering">
+    <form>
+        <label>Name</label> <input type="text" name="name" id="name" />
+        <label>Role</label>  @Html.DropDownList("UserType",string.Empty)
+        <button type="submit" id="LoadRecordsButton">Load records</button>
+    </form>
+</div>
+
+<div id="UserTableContainer">
+
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#UserTableContainer').jtable({
+                title: 'User Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/User/List',
+                    createAction: '/User/Create',
+                    updateAction: '/User/Edit',
+                    deleteAction: '/User/Delete'
+                },
+
+                fields: {
+                    UserId: {
+                        key: true,
+                        list: false
+                    },
+                    UserName: {
+                        title: 'User Name',
+                        width: '40%'
+                    },
+                    Password: {
+                        title: 'Password',
+                        type: 'password',
+                        width: '20%'
+                    },
+                    Email: {
+                        title: 'Email',
+                        width: '20%'
+                    },
+                    UserType: {
+                        title: 'User Role',
+                        options: '/User/GetRole',
+                        width: '20%'
+                    },
+
+
+                }
+            });
+            $('#LoadRecordsButton').click(function (e) {
+                e.preventDefault();
+                $('#UserTableContainer').jtable('load', {
+                    name: $('#name').val(),
+                    userType: $('#UserType').val()
+                });
+            });
+
+            //Load all records when page is first shown
+            $('#LoadRecordsButton').click();
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+</p>*@
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
@@ -49,4 +191,4 @@
         </tr>
     }
 
-</table>
+</table>*@
