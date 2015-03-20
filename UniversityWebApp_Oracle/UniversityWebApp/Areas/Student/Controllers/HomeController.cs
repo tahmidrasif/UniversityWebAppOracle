@@ -10,7 +10,7 @@ namespace UniversityWebApp.Areas.Student.Controllers
     {
         //
         // GET: /Student/Home/
-        [Authorize(Roles = "Student")]
+        //[Authorize(Roles = "Student")]
         public ActionResult Index()
         {
             return View();

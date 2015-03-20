@@ -171,6 +171,7 @@
     <Compile Include="Areas\Admin\Controllers\CourseController.cs" />
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StudentController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\Course.cs" />
     <Compile Include="Areas\Admin\Models\Department.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Repository\Gateway\CourseGateway.cs" />
     <Compile Include="Repository\Gateway\DepartmentGateway.cs" />
     <Compile Include="Repository\Gateway\Gateway.cs" />
+    <Compile Include="Repository\Gateway\StudentGateway.cs" />
     <Compile Include="Repository\Gateway\UserGateway.cs" />
     <Compile Include="Repository\MyDbContext.cs" />
     <Compile Include="Repository\SampleData.cs" />
@@ -226,6 +228,7 @@
     <Content Include="Content\images\camera-loader.gif" />
     <Content Include="Content\images\camera_skins.png" />
     <Content Include="Content\images\favicon.png" />
+    <Content Include="Content\images\jegwCzaeibasi.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\news2.jpg" />
     <Content Include="Content\images\news3.jpg" />
@@ -343,6 +346,12 @@
     <Content Include="Areas\Student\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Course\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Student\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Student\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Student\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Student\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Student\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -539,7 +548,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Areas\Student\Views\Shared\" />
+    <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
