@@ -114,9 +114,10 @@ namespace UniversityWebApp.Repository.Gateway
 
         }
 
-        public void Edit(User aUser)
+        public void Edit(User user)
         {
-
+            var aUser = GetById(user.UserId);
+            aUser = user;
             string query = string.Format(@"UPDATE USERS SET USERNAME='" + aUser.UserName + "',PASSWORD='" + aUser.Password + "',EMAIL='" + aUser.Email + "',USERTYPE='" + aUser.UserType + "' WHERE USERID=" + aUser.UserId);
 
             try
@@ -157,6 +158,36 @@ namespace UniversityWebApp.Repository.Gateway
                     OracleConnection.Close();
                 }
            
+        }
+        public void EditByStudent(User user)
+        {
+            var aUser = GetById(user.UserId);
+            if (user.Email != null)
+            {
+                aUser.Email = user.Email;
+            }
+            if (user.Password != null)
+            {
+                aUser.Password = user.Password;
+            }
+           
+            string query = string.Format(@"UPDATE USERS SET USERNAME='" + aUser.UserName + "',PASSWORD='" + aUser.Password + "',EMAIL='" + aUser.Email + "',USERTYPE='" + aUser.UserType + "' WHERE USERID=" + aUser.UserId);
+
+            try
+            {
+                OracleConnection.Open();
+                OracleCommand = new OracleCommand(query, OracleConnection);
+                int isAffected = OracleCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error in inserting", exception);
+            }
+            finally
+            {
+                OracleConnection.Close();
+            }
+
         }
     }
 }

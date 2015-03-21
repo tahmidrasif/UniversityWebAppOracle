@@ -344,7 +344,6 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Student\Views\web.config" />
     <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Student\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Course\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Student\Create.cshtml" />
@@ -353,7 +352,10 @@
     <Content Include="Areas\Admin\Views\Student\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Student\Index.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Student\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Home\Edit.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Image\7201237400_9f2a686a92.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\camera.min.js" />
@@ -549,7 +551,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

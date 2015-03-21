@@ -53,7 +53,7 @@ namespace UniversityWebApp.Controllers
                 }
                 if (user.UserType == "Student")
                 {
-                   // return RedirectToAction("Index", "User", new { Area = "Admin" });
+                   return RedirectToAction("Index", "Home", new { Area = "Student" });
                 }
         
             }

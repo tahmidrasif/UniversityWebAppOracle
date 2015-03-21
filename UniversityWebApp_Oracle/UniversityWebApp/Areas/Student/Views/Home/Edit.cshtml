@@ -1,0 +1,117 @@
+﻿@using System.Web.Mvc.Html
+@model UniversityWebApp.Areas.Admin.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="col-md-4">
+    <br />
+    <br />
+    <br />
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+<div class="col-md-8">
+
+    <div class="jumbotron">
+        <div class="container">
+
+
+
+            @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Edit</h4>
+                    <hr />
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.StudentId)
+                    
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name)
+                                @Html.ValidationMessageFor(model => model.Name)
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address)
+                                @Html.ValidationMessageFor(model => model.Address)
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Email", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBox("Email")
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Password", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Password("Password")
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Re-Type Password", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Password("ConfirmPassword")
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="file" name="file" id="file" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <br><br>
+
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+

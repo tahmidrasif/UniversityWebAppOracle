@@ -39,10 +39,23 @@ namespace UniversityWebApp.Repository.Gateway
 
         }
 
+        //Student Model Er Jonne 2ta Edit method Lagbe EditByStudent EditByAdmin
         public void Edit(Student student)
         {
             var aStudent = GetById(student.StudentId);
-            aStudent = student;
+            if (student.Name != null)
+            {
+                aStudent.Name = student.Name;
+            }
+            if (student.Address != null)
+            {
+                aStudent.Address = student.Address;
+            }
+            if (student.ImagePath != null)
+            {
+                aStudent.ImagePath = student.ImagePath;
+            }
+            
             string query = string.Format(@"UPDATE STUDENT SET REGISTRATIONNO='" +aStudent.RegistrationNo + "', NAME='" + aStudent.Name + "',ADDRESS='" + aStudent.Address + "',CGPA=" + aStudent.Cgpa + ",IMAGEPATH='" + aStudent.ImagePath + "',DEPARTMENTID="+aStudent.DepartmentId+"  WHERE STUDENTID=" + student.StudentId);
 
             try

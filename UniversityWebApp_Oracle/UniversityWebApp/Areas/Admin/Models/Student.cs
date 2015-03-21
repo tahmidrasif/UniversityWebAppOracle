@@ -14,7 +14,6 @@ namespace UniversityWebApp.Areas.Admin.Models
         [DisplayName("Registration Number")]
         public string RegistrationNo { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
         public string Address { get; set; }
         [DisplayName("CGPA")]
         public double Cgpa { get; set; }
