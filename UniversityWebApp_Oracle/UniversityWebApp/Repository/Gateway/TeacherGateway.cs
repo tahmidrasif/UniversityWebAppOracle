@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using Oracle.ManagedDataAccess.Client;
 using UniversityWebApp.Areas.Admin.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
-    public class UserGateway : Gateway
+    public class TeacherGateway:Gateway
     {
         public OracleCommand OracleCommand { get; set; }
         public OracleDataReader OracleDataReader { get; set; }
-        public UserGateway()
+        public TeacherGateway()
             : base("UniversityWebAppOracle")
         {
 
         }
 
-        public int Insert(User aUser)
+        public int Insert(Teacher teacher)
         {
-            string query = string.Format(@"INSERT INTO USERS (USERNAME,PASSWORD,EMAIL,USERTYPE) VALUES('" + aUser.UserName + "','" + aUser.Password + "','" + aUser.Email + "','" + aUser.UserType + "')");
+            string query = string.Format(@"INSERT INTO TEACHER (USERID,NAME,DESIGNATION,EMAIL,CREDTITOBETAKEN,REMAININGCREDIT,DEPARTMENTID) VALUES(" + teacher.UserId + ",'" + teacher.Name + "','" + teacher.Designation + "','" + teacher.Email + "'," + teacher.CreditToBeTaken + "," + teacher.RemainingCredit + "," + teacher.DepartmentId + ")");
 
             try
             {
@@ -41,10 +38,10 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
-        public List<User> GetAll()
+        public List<Teacher> GetAll()
         {
-            string query = string.Format(@"SELECT * FROM USERS");
-            var users = new List<User>();
+            string query = string.Format(@"SELECT * FROM TEACHER");
+            var teachers = new List<Teacher>();
             try
             {
                 OracleConnection.Open();
@@ -54,13 +51,16 @@ namespace UniversityWebApp.Repository.Gateway
                 {
                     while (OracleDataReader.Read())
                     {
-                        User aUser = new User();
-                        aUser.UserId = Convert.ToInt16(OracleDataReader[0]);
-                        aUser.UserName = (string)OracleDataReader[1];
-                        aUser.Password = (string)OracleDataReader[2];
-                        aUser.Email = (string)OracleDataReader[3];
-                        aUser.UserType = (string)OracleDataReader[4];
-                        users.Add(aUser);
+                        Teacher aTeacher=new Teacher();
+                        aTeacher.TeacherId = Convert.ToInt16(OracleDataReader[0]);
+                        aTeacher.UserId = Convert.ToInt16(OracleDataReader[1]);
+                        aTeacher.Name = OracleDataReader[2].ToString();
+                        aTeacher.Designation = OracleDataReader[3].ToString();
+                        aTeacher.Email = OracleDataReader[4].ToString();
+                        aTeacher.CreditToBeTaken = Convert.ToDouble(OracleDataReader[5]);
+                        aTeacher.RemainingCredit = Convert.ToDouble(OracleDataReader[6]);
+                        aTeacher.DepartmentId = Convert.ToInt16(OracleDataReader[7]);
+                        teachers.Add(aTeacher);
                     }
                 }
             }
@@ -72,14 +72,14 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return users;
+            return teachers;
 
         }
 
-        public User GetById(int? id)
+        public Teacher GetById(int? id)
         {
-            User aUser = new User();
-            string query = string.Format(@"SELECT * FROM USERS WHERE USERID=" + id);
+            Teacher aTeacher = new Teacher();
+            string query = string.Format(@"SELECT * FROM TEACHER WHERE TEACHERID=" + id);
             try
             {
                 if (id != null)
@@ -92,11 +92,14 @@ namespace UniversityWebApp.Repository.Gateway
                     {
                         while (OracleDataReader.Read())
                         {
-                            aUser.UserId = Convert.ToInt16(OracleDataReader[0]);
-                            aUser.UserName = (string)OracleDataReader[1];
-                            aUser.Password = (string)OracleDataReader[2];
-                            aUser.Email = (string)OracleDataReader[3];
-                            aUser.UserType = (string)OracleDataReader[4];
+                            aTeacher.TeacherId = Convert.ToInt16(OracleDataReader[0]);
+                            aTeacher.UserId = Convert.ToInt16(OracleDataReader[1]);
+                            aTeacher.Name = OracleDataReader[2].ToString();
+                            aTeacher.Designation = OracleDataReader[3].ToString();
+                            aTeacher.Email = OracleDataReader[4].ToString();
+                            aTeacher.CreditToBeTaken = Convert.ToDouble(OracleDataReader[5]);
+                            aTeacher.RemainingCredit = Convert.ToDouble(OracleDataReader[6]);
+                            aTeacher.DepartmentId = Convert.ToInt16(OracleDataReader[7]);
 
                         }
                     }
@@ -110,15 +113,15 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return aUser;
+            return aTeacher;
 
         }
 
-        public void Edit(User user)
+        //EDIT BY ADMIN
+        public void Edit(Teacher aTeacher)
         {
-            var aUser = GetById(user.UserId);
-            aUser = user;
-            string query = string.Format(@"UPDATE USERS SET USERNAME='" + aUser.UserName + "',PASSWORD='" + aUser.Password + "',EMAIL='" + aUser.Email + "',USERTYPE='" + aUser.UserType + "' WHERE USERID=" + aUser.UserId);
+
+            string query = string.Format(@"UPDATE TEACHER SET USERID="+aTeacher.UserId+",NAME='"+aTeacher.Name+"',DESIGNATION='"+aTeacher.Designation+"',EMAIL='"+aTeacher.Email+"',CREDTITOBETAKEN="+aTeacher.CreditToBeTaken+",REMAININGCREDIT="+aTeacher.RemainingCredit+",DEPARTMENTID="+aTeacher.DepartmentId+" WHERE TEACHERID=" + aTeacher.TeacherId);
 
             try
             {
@@ -138,8 +141,8 @@ namespace UniversityWebApp.Repository.Gateway
         }
         public void Delete(int? id)
         {
-            
-                string query = string.Format(@"DELETE FROM  USERS  WHERE USERID=" + id);
+
+            string query = string.Format(@"DELETE FROM  TEACHER  WHERE TEACHERID=" + id);
                 try
                 {
                     if (id != null)
@@ -158,36 +161,6 @@ namespace UniversityWebApp.Repository.Gateway
                     OracleConnection.Close();
                 }
            
-        }
-        public void EditByStudent(User user)
-        {
-            var aUser = GetById(user.UserId);
-            if (user.Email != null)
-            {
-                aUser.Email = user.Email;
-            }
-            if (user.Password != null)
-            {
-                aUser.Password = user.Password;
-            }
-           
-            string query = string.Format(@"UPDATE USERS SET USERNAME='" + aUser.UserName + "',PASSWORD='" + aUser.Password + "',EMAIL='" + aUser.Email + "',USERTYPE='" + aUser.UserType + "' WHERE USERID=" + aUser.UserId);
-
-            try
-            {
-                OracleConnection.Open();
-                OracleCommand = new OracleCommand(query, OracleConnection);
-                int isAffected = OracleCommand.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("Error in inserting", exception);
-            }
-            finally
-            {
-                OracleConnection.Close();
-            }
-
         }
     }
 }

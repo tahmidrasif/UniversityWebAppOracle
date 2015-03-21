@@ -1,0 +1,94 @@
+﻿@model IEnumerable<UniversityWebApp.Areas.Admin.Models.Teacher>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+<div class="filtering">
+    <form>
+        <label>Name</label> <input type="text" name="name" id="name" />
+        @*<label>Role</label>  @Html.DropDownList("UserType", string.Empty)*@
+        <button type="submit" id="LoadRecordsButton">Load records</button>
+    </form>
+</div>
+
+<div id="TeacherTableContainer">
+
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#TeacherTableContainer').jtable({
+                title: 'Teacher Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/Teacher/List',
+                    createAction: '/Teacher/Create',
+                    updateAction: '/Teacher/Edit',
+                    deleteAction: '/Teacher/Delete'
+                },
+
+                fields: {
+                    TeacherId: {
+                        key: true,
+                        list: false
+                    },
+                    UserId: {
+                        list: false,
+                        create: true,
+                        options: '/Teacher/GetUserId',
+                    },
+                    Name: {
+                        title: 'Teacher Name',
+                        width: '40%'
+                    },
+                    Designation: {
+                        title: 'Designation',
+                        options: '/Teacher/GetDesignation',
+                        width: '20%'
+                    },
+                    Email: {
+                        title: 'Email',
+                        options: '/Teacher/GetEmail',
+                        width: '20%'
+                    },
+                    CreditToBeTaken: {
+                        title: 'Credit To Be Taken',
+                        width: '20%',
+                    },
+                    RemainingCredit: {
+                        title: 'Remaining Credit',
+                        width: '20%',
+                        create: false,
+                        edit: false
+                        
+                    },
+                    DepartmentId: {
+                        title: 'Department',
+                        options: '/Teacher/GetDepartment',
+                        width: '20%'
+                    },
+
+                }
+            });
+  
+                $('#TeacherTableContainer').jtable('load');
+
+        });
+
+
+    </script>
+}

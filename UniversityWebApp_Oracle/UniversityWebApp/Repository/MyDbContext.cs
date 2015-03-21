@@ -29,5 +29,7 @@ namespace UniversityWebApp.Repository
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Course> Courses { get; set; }
 
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Student> Students { get; set; }
+
+        public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Teacher> Teachers { get; set; }
     }
 }
