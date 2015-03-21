@@ -35,10 +35,10 @@
                 defaultSorting: 'Name ASC',
 
                 actions: {
-                    listAction: '/Teacher/List',
-                    createAction: '/Teacher/Create',
-                    updateAction: '/Teacher/Edit',
-                    deleteAction: '/Teacher/Delete'
+                    listAction: '/Admin/Teacher/List',
+                    createAction: '/Admin/Teacher/Create',
+                    updateAction: '/Admin/Teacher/Edit',
+                    deleteAction: '/Admin/Teacher/Delete'
                 },
 
                 fields: {
@@ -47,9 +47,10 @@
                         list: false
                     },
                     UserId: {
+                        title: 'User Name',
                         list: false,
                         create: true,
-                        options: '/Teacher/GetUserId',
+                        options: '/Admin/Teacher/GetUserId',
                     },
                     Name: {
                         title: 'Teacher Name',
@@ -57,12 +58,12 @@
                     },
                     Designation: {
                         title: 'Designation',
-                        options: '/Teacher/GetDesignation',
+                        options: '/Admin/Teacher/GetDesignation',
                         width: '20%'
                     },
                     Email: {
                         title: 'Email',
-                        options: '/Teacher/GetEmail',
+                        options: '/Admin/Teacher/GetEmail',
                         width: '20%'
                     },
                     CreditToBeTaken: {
@@ -78,8 +79,14 @@
                     },
                     DepartmentId: {
                         title: 'Department',
-                        options: '/Teacher/GetDepartment',
+                        options: '/Admin/Teacher/GetDepartment',
                         width: '20%'
+                    },
+                    ImagePath: {
+                        title: 'Image',
+                        width: '20%',
+                        create: false,
+                        edit: false
                     },
 
                 }

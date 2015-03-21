@@ -12,6 +12,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TeacherController : Controller
     {
         UserGateway aUserGateway=new UserGateway();
@@ -47,7 +48,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult Create(Teacher teacher)
+        public JsonResult Create(Models.Teacher teacher)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(Teacher teacher)
+        public JsonResult Edit(Models.Teacher teacher)
         {
             try
             {

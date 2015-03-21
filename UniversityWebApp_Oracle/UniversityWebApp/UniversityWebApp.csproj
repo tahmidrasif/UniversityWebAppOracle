@@ -181,6 +181,8 @@
     <Compile Include="Areas\Admin\Models\User.cs" />
     <Compile Include="Areas\Student\Controllers\HomeController.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
+    <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -356,11 +358,10 @@
     <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Student\Views\Home\Index.cshtml" />
     <Content Include="Areas\Student\Views\Home\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Teacher\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Teacher\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Teacher\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Teacher\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teacher\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\web.config" />
+    <Content Include="Areas\Teacher\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Teacher\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Image\7201237400_9f2a686a92.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -558,6 +559,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Areas\Teacher\Models\" />
+    <Folder Include="Areas\Teacher\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

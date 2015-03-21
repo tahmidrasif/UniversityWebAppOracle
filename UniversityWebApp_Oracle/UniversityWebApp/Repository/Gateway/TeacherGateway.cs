@@ -19,7 +19,7 @@ namespace UniversityWebApp.Repository.Gateway
 
         public int Insert(Teacher teacher)
         {
-            string query = string.Format(@"INSERT INTO TEACHER (USERID,NAME,DESIGNATION,EMAIL,CREDTITOBETAKEN,REMAININGCREDIT,DEPARTMENTID) VALUES(" + teacher.UserId + ",'" + teacher.Name + "','" + teacher.Designation + "','" + teacher.Email + "'," + teacher.CreditToBeTaken + "," + teacher.RemainingCredit + "," + teacher.DepartmentId + ")");
+            string query = string.Format(@"INSERT INTO TEACHER (USERID,NAME,DESIGNATION,EMAIL,CREDTITOBETAKEN,REMAININGCREDIT,DEPARTMENTID,IMAGEPATH) VALUES(" + teacher.UserId + ",'" + teacher.Name + "','" + teacher.Designation + "','" + teacher.Email + "'," + teacher.CreditToBeTaken + "," + teacher.RemainingCredit + "," + teacher.DepartmentId + ",'" + teacher.ImagePath + "')");
 
             try
             {
@@ -60,6 +60,7 @@ namespace UniversityWebApp.Repository.Gateway
                         aTeacher.CreditToBeTaken = Convert.ToDouble(OracleDataReader[5]);
                         aTeacher.RemainingCredit = Convert.ToDouble(OracleDataReader[6]);
                         aTeacher.DepartmentId = Convert.ToInt16(OracleDataReader[7]);
+                        aTeacher.ImagePath = OracleDataReader[8].ToString();
                         teachers.Add(aTeacher);
                     }
                 }
@@ -100,6 +101,7 @@ namespace UniversityWebApp.Repository.Gateway
                             aTeacher.CreditToBeTaken = Convert.ToDouble(OracleDataReader[5]);
                             aTeacher.RemainingCredit = Convert.ToDouble(OracleDataReader[6]);
                             aTeacher.DepartmentId = Convert.ToInt16(OracleDataReader[7]);
+                            aTeacher.ImagePath = OracleDataReader[8].ToString();
 
                         }
                     }
@@ -121,7 +123,7 @@ namespace UniversityWebApp.Repository.Gateway
         public void Edit(Teacher aTeacher)
         {
 
-            string query = string.Format(@"UPDATE TEACHER SET USERID="+aTeacher.UserId+",NAME='"+aTeacher.Name+"',DESIGNATION='"+aTeacher.Designation+"',EMAIL='"+aTeacher.Email+"',CREDTITOBETAKEN="+aTeacher.CreditToBeTaken+",REMAININGCREDIT="+aTeacher.RemainingCredit+",DEPARTMENTID="+aTeacher.DepartmentId+" WHERE TEACHERID=" + aTeacher.TeacherId);
+            string query = string.Format(@"UPDATE TEACHER SET USERID=" + aTeacher.UserId + ",NAME='" + aTeacher.Name + "',DESIGNATION='" + aTeacher.Designation + "',EMAIL='" + aTeacher.Email + "',CREDTITOBETAKEN=" + aTeacher.CreditToBeTaken + ",REMAININGCREDIT=" + aTeacher.RemainingCredit + ",DEPARTMENTID=" + aTeacher.DepartmentId + ",IMAGEPATH='" + aTeacher.ImagePath + "' WHERE TEACHERID=" + aTeacher.TeacherId);
 
             try
             {
