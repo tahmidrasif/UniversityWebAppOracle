@@ -17,6 +17,7 @@ namespace UniversityWebApp.Areas.Admin.Models
         public string Address { get; set; }
         [DisplayName("CGPA")]
         public double Cgpa { get; set; }
+        public string Email { get; set; }
         public string ImagePath { get; set; }
         [Required]
         [DisplayName("User ID")]

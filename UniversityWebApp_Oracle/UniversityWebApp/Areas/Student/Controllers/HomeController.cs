@@ -24,7 +24,6 @@ namespace UniversityWebApp.Areas.Student.Controllers
             var user = (User)Session["User"];
             var aUser = aUserGateway.GetById(user.UserId);
             ViewBag.userName = aUser.UserName;
-            ViewBag.userEmail = aUser.Email;
             var students = aStudentGateway.GetAll();
             var student = students.FirstOrDefault(x => x.UserId == aUser.UserId);
             if (student!=null)
@@ -41,7 +40,7 @@ namespace UniversityWebApp.Areas.Student.Controllers
             return View(student);
         }
         [HttpPost]
-        public ActionResult Edit(Admin.Models.Student student, string Password,string ConfirmPassword,string Email,HttpPostedFileBase file)
+        public ActionResult Edit(Admin.Models.Student student, string Password,string ConfirmPassword,HttpPostedFileBase file)
         {
             var astudent = aStudentGateway.GetById(student.StudentId);
             if (file != null)
@@ -65,17 +64,17 @@ namespace UniversityWebApp.Areas.Student.Controllers
                     aUserGateway.EditByStudent(aUser);
                 }
             }
-            if (Email!="")
+            if (student.Email!="")
             {
                     Regex regex=new Regex(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
                            @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
                            @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-                    Match match = regex.Match(Email);
+                    Match match = regex.Match(student.Email);
                     if (match.Success)
                     {
                         User aUser = new User();
                         aUser.UserId = astudent.UserId;
-                        aUser.Email = Email;
+                        aUser.Email = student.Email;
                         aUserGateway.EditByStudent(aUser);
                     }   
 

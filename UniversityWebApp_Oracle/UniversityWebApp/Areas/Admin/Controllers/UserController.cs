@@ -31,7 +31,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
 
         public JsonResult List(string name, string userType, int jtStartIndex, int jtPageSize, int departmentId = 0)
         {
-            Session["UserCount"] = aUserGateway.GetAll().Count;
+            
             try
             {
                 var users = aUserGateway.GetAll();

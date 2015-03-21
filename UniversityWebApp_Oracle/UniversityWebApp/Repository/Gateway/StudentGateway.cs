@@ -17,10 +17,11 @@ namespace UniversityWebApp.Repository.Gateway
 
         }
 
+        //Only Admin Can Get This Method
         public int Insert(Student student)
         {
         //    string query = string.Format(@"INSERT INTO STUDENT (REGISTRATIONNO,USERID,DEPARTMENTID) VALUES(@reg,@uId,@dId)");
-            string query = string.Format(@"INSERT INTO STUDENT (REGISTRATIONNO,USERID,DEPARTMENTID) VALUES('" + student.RegistrationNo + "',"+student.UserId+","+student.DepartmentId+")");
+            string query = string.Format(@"INSERT INTO STUDENT (REGISTRATIONNO,USERID,DEPARTMENTID,EMAIL) VALUES('" + student.RegistrationNo + "'," + student.UserId + "," + student.DepartmentId + ",'" + student.Email + "')");
             try
             {
                 OracleConnection.Open();
@@ -55,8 +56,11 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 aStudent.ImagePath = student.ImagePath;
             }
-            
-            string query = string.Format(@"UPDATE STUDENT SET REGISTRATIONNO='" +aStudent.RegistrationNo + "', NAME='" + aStudent.Name + "',ADDRESS='" + aStudent.Address + "',CGPA=" + aStudent.Cgpa + ",IMAGEPATH='" + aStudent.ImagePath + "',DEPARTMENTID="+aStudent.DepartmentId+"  WHERE STUDENTID=" + student.StudentId);
+            if (student.Email != null)
+            {
+                aStudent.Email = student.Email;
+            }
+            string query = string.Format(@"UPDATE STUDENT SET REGISTRATIONNO='" + aStudent.RegistrationNo + "', NAME='" + aStudent.Name + "',ADDRESS='" + aStudent.Address + "',CGPA=" + aStudent.Cgpa + ",IMAGEPATH='" + aStudent.ImagePath + "',DEPARTMENTID=" + aStudent.DepartmentId + " ,EMAIL='" + aStudent.Email + "'  WHERE STUDENTID=" + student.StudentId);
 
             try
             {
@@ -105,6 +109,7 @@ namespace UniversityWebApp.Repository.Gateway
                         {
                             student.UserId = Convert.ToInt16(OracleDataReader[7]);
                         }
+                        student.Email = OracleDataReader[8].ToString();
                         students.Add(student);
                     }
                 }
@@ -154,6 +159,7 @@ namespace UniversityWebApp.Repository.Gateway
                             {
                                 student.UserId = Convert.ToInt16(OracleDataReader[7]);
                             }
+                            student.Email = OracleDataReader[8].ToString();
                         }
                     }
                 }

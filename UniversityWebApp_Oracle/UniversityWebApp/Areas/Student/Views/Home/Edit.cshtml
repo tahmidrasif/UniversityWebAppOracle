@@ -55,9 +55,9 @@
                     <br />
                     <div class="row">
                         <div class="form-group">
-                            @Html.Label("Email", new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.TextBox("Email")
+                                @Html.TextBoxFor(model => model.Email)
                             </div>
                         </div>
                     </div>

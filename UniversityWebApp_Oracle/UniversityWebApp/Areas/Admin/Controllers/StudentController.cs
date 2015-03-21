@@ -17,6 +17,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         // GET: /Admin/Student/
         public ActionResult Index()
         {
+
             return View(aStudentGateway.GetAll());
         }
 
@@ -40,6 +41,8 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         public ActionResult Create(Models.Student student)
         {
             var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
+            var user = aUserGateway.GetById(student.UserId);
+            student.Email = user.Email;
             if (ModelState.IsValid)
             {
                 aStudentGateway.Insert(student);

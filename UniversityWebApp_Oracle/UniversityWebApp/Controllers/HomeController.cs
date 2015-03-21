@@ -49,7 +49,7 @@ namespace UniversityWebApp.Controllers
                 Session["User"] = user;
                 if (user.UserType == "Admin")
                 {
-                    return RedirectToAction("Index", "User", new { Area = "Admin" });
+                    return RedirectToAction("Index", "Home", new { Area = "Admin" });
                 }
                 if (user.UserType == "Student")
                 {
@@ -65,6 +65,8 @@ namespace UniversityWebApp.Controllers
             FormsAuthentication.SignOut();
             Session["User"] = null;
             Session["UserCount"] = null;
+            Session["StudentCount"] = null;
+            Session["DepartmentCount"] = null;
             return RedirectToAction("Index");
 
         }
