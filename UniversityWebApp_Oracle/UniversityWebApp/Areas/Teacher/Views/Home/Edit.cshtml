@@ -1,0 +1,101 @@
+﻿@model UniversityWebApp.Areas.Teacher.Models.TeacherViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<div class="col-md-4">
+    <br />
+    <br />
+    <br />
+    @if (Model.ImagePath != "")
+    {
+
+        <img src=@Model.ImagePath class="img-thumbnail img-responsive" />
+    }
+    else
+    {
+        <img src="~/Image/7201237400_9f2a686a92.jpg" class="img-thumbnail img-responsive" />
+    }
+
+    <br />
+    <br />
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+
+<div class="col-md-8">
+    <div class="jumbotron">
+        <div class="container">
+           
+            @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data"}))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>TeacherViewModel</h4>
+                    <hr />
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email)
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.Password("PasswordOne",Model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Confirm Password", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.Password("PasswordTwo",Model.Password)
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Upload Photo", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" name="file" id="file"  />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+
+
+

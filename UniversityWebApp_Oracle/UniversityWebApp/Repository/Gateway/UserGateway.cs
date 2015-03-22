@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Oracle.ManagedDataAccess.Client;
 using UniversityWebApp.Areas.Admin.Models;
+using UniversityWebApp.Areas.Teacher.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
@@ -188,6 +189,27 @@ namespace UniversityWebApp.Repository.Gateway
                 OracleConnection.Close();
             }
 
+        }
+
+
+        public void EditByTeacher(TeacherViewModel aViewModel)
+        {
+            string query = string.Format(@"UPDATE USERS SET PASSWORD='" + aViewModel.Password + "',EMAIL='" + aViewModel.Email + "' WHERE USERID=" + aViewModel.UserId);
+
+            try
+            {
+                OracleConnection.Open();
+                OracleCommand = new OracleCommand(query, OracleConnection);
+                int isAffected = OracleCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error in inserting", exception);
+            }
+            finally
+            {
+                OracleConnection.Close();
+            }
         }
     }
 }

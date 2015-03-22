@@ -1,7 +1,80 @@
-﻿
+﻿@model UniversityWebApp.Areas.Teacher.Models.TeacherViewModel
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+
+
+<div class="col-md-4">
+    <br />
+    <br />
+    <br />
+    @if (Model.ImagePath != "")
+    {
+
+        <img src=@Model.ImagePath class="img-thumbnail img-responsive" />
+    }
+    else
+    {
+        <img src="~/Image/7201237400_9f2a686a92.jpg" class="img-thumbnail img-responsive" />
+    }
+
+    <br />
+    <br />
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+
+<div class="col-md-8">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayNameFor(model => model.DepartmentName)</h4>
+                    @Html.DisplayFor(model => model.DepartmentName)
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h4> @Html.DisplayNameFor(model => model.Name)</h4>
+                    @Html.DisplayFor(model => model.Name)
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayNameFor(model => model.UserName)</h4>
+                    @Html.DisplayFor(model => model.UserName)
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayNameFor(model => model.Designation)</h4>
+                    @Html.DisplayFor(model => model.Designation)
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayFor(model => model.Email)</h4>
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayNameFor(model => model.CreditToBeTaken)</h4>
+                    @Html.DisplayNameFor(model => model.RemainingCredit)
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <h4>@Html.DisplayNameFor(model => model.RemainingCredit)</h4>
+                    @Html.DisplayFor(model => model.RemainingCredit)
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
 

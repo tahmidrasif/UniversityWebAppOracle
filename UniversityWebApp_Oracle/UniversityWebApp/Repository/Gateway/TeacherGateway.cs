@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Oracle.ManagedDataAccess.Client;
 using UniversityWebApp.Areas.Admin.Models;
+using UniversityWebApp.Areas.Teacher.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
@@ -163,6 +164,26 @@ namespace UniversityWebApp.Repository.Gateway
                     OracleConnection.Close();
                 }
            
+        }
+
+        public void EditByTeacher(TeacherViewModel aViewModel)
+        {
+            string query = string.Format(@"UPDATE TEACHER SET NAME='" + aViewModel.Name + "',EMAIL='" + aViewModel.Email + "',IMAGEPATH='" + aViewModel.ImagePath + "' WHERE TEACHERID=" + aViewModel.TeacherId);
+
+            try
+            {
+                OracleConnection.Open();
+                OracleCommand = new OracleCommand(query, OracleConnection);
+                int isAffected = OracleCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error in inserting", exception);
+            }
+            finally
+            {
+                OracleConnection.Close();
+            }
         }
     }
 }
