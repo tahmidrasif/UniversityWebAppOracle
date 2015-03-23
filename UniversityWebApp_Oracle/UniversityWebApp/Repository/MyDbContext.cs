@@ -33,5 +33,7 @@ namespace UniversityWebApp.Repository
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Teacher> Teachers { get; set; }
 
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Teacher.Models.TeacherViewModel> TeacherViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.Room> Rooms { get; set; }
     }
 }

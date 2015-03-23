@@ -1,0 +1,65 @@
+﻿@model IEnumerable<UniversityWebApp.Areas.Admin.Models.Room>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="filtering">
+    <form>
+        <label>Name</label> <input type="text" name="name" id="name" />
+        <button type="submit" id="LoadRecordsButton">Search</button>
+    </form>
+</div>
+
+<div id="RoomTableContainer">
+</div>
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#RoomTableContainer').jtable({
+                title: 'Room Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/Room/List',
+                    createAction: '/Room/Create',
+                    updateAction: '/Room/Edit',
+                    deleteAction: '/Room/Delete'
+                },
+
+                fields: {
+                    RoomId: {
+                        key: true,
+                        list: false
+                    },
+                    RoomNumber: {
+                        title: 'Name',
+                        width: '40%'
+                    },
+                    Capacity: {
+                        title: 'Capacity',
+                        width: '20%'
+                    },
+                    DepartmentId: {
+                        title: 'Department Name',
+                        options: '/Room/GetDepartmentName',
+                        width: '20%'
+                    },
+
+                }
+            });
+            $('#RoomTableContainer').jtable('load');
+        });
+
+
+    </script>
+}

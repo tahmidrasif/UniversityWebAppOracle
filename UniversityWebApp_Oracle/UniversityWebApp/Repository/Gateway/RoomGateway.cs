@@ -7,19 +7,19 @@ using UniversityWebApp.Areas.Admin.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
-    public class DepartmentGateway:Gateway
+    public class RoomGateway:Gateway
     {
-        public OracleCommand OracleCommand { get; set; }
+         public OracleCommand OracleCommand { get; set; }
         public OracleDataReader OracleDataReader { get; set; }
-        public DepartmentGateway()
+        public RoomGateway()
             : base("UniversityWebAppOracle")
         {
 
         }
 
-        public int Insert(Department aDepartment)
+        public int Insert(Room aRoom)
         {
-            string query = string.Format(@"INSERT INTO DEPARTMENT (NAME,CODE) VALUES('" + aDepartment.Name + "','" + aDepartment.Code + "')");
+            string query = string.Format(@"INSERT INTO ROOM (ROOMNUMBER,CAPACITY,DEPARTMENTID) VALUES('" + aRoom.RoomNumber + "'," + aRoom.Capacity + "," + aRoom.DepartmentId + ")");
 
             try
             {
@@ -38,10 +38,10 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
-        public List<Department> GetAll()
+        public List<Room> GetAll()
         {
-            string query = string.Format(@"SELECT * FROM DEPARTMENT");
-            var depatments = new List<Department>();
+            string query = string.Format(@"SELECT * FROM ROOM");
+            var rooms = new List<Room>();
             try
             {
                 OracleConnection.Open();
@@ -51,11 +51,12 @@ namespace UniversityWebApp.Repository.Gateway
                 {
                     while (OracleDataReader.Read())
                     {
-                        Department aDepartment = new Department();
-                        aDepartment.DepartmentId = Convert.ToInt16(OracleDataReader[0]);
-                        aDepartment.Name = OracleDataReader[1].ToString();
-                        aDepartment.Code = OracleDataReader[2].ToString();
-                        depatments.Add(aDepartment);
+                        Room aRoom = new Room();
+                        aRoom.RoomId = Convert.ToInt16(OracleDataReader[0]);
+                        aRoom.RoomNumber = OracleDataReader[1].ToString();
+                        aRoom.Capacity = Convert.ToInt16(OracleDataReader[2]);
+                        aRoom.DepartmentId = Convert.ToInt16(OracleDataReader[3]);
+                        rooms.Add(aRoom);
                     }
                 }
             }
@@ -67,14 +68,14 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return depatments;
+            return rooms;
 
         }
 
-        public Department GetById(int? id)
+        public Room GetById(int? id)
         {
-            Department aDepartment = new Department();
-            string query = string.Format(@"SELECT * FROM DEPARTMENT WHERE DEPARTMENTID=" + id);
+            Room aRoom = new Room();
+            string query = string.Format(@"SELECT * FROM ROOM WHERE ROOMID=" + id);
             try
             {
                 if (id != null)
@@ -87,9 +88,10 @@ namespace UniversityWebApp.Repository.Gateway
                     {
                         while (OracleDataReader.Read())
                         {
-                            aDepartment.DepartmentId = Convert.ToInt16(OracleDataReader[0]);
-                            aDepartment.Name = OracleDataReader[1].ToString();
-                            aDepartment.Code = OracleDataReader[2].ToString();
+                            aRoom.RoomId = Convert.ToInt16(OracleDataReader[0]);
+                            aRoom.RoomNumber = OracleDataReader[1].ToString();
+                            aRoom.Capacity = Convert.ToInt16(OracleDataReader[2]);
+                            aRoom.DepartmentId = Convert.ToInt16(OracleDataReader[3]);
 
                         }
                     }
@@ -103,14 +105,14 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return aDepartment;
+            return aRoom;
 
         }
 
-        public void Edit(Department aDepartment)
+        public void Edit(Room aRoom)
         {
 
-            string query = string.Format(@"UPDATE DEPARTMENT SET NAME='" + aDepartment.Name + "',CODE='" + aDepartment.Code + "' WHERE DEPARTMENTID=" + aDepartment.DepartmentId);
+            string query = string.Format(@"UPDATE ROOM SET ROOMNUMBER='" + aRoom.RoomNumber + "',CAPACITY=" + aRoom.Capacity + ",DEPARTMENTID=" + aRoom.DepartmentId + " WHERE ROOMID=" + aRoom.RoomId);
 
             try
             {
@@ -131,7 +133,7 @@ namespace UniversityWebApp.Repository.Gateway
         public void Delete(int? id)
         {
             
-                string query = string.Format(@"DELETE FROM  DEPARTMENT  WHERE DEPARTMENTID=" + id);
+                string query = string.Format(@"DELETE FROM  ROOM  WHERE ROOMID=" + id);
                 try
                 {
                     if (id != null)
@@ -151,6 +153,5 @@ namespace UniversityWebApp.Repository.Gateway
                 }
            
         }
-
     }
 }
