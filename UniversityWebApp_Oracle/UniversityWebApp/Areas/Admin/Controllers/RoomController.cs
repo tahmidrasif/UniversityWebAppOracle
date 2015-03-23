@@ -12,6 +12,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoomController : Controller
     {
         private MyDbContext db = new MyDbContext();

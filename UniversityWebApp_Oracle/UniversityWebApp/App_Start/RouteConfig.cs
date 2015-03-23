@@ -17,7 +17,7 @@ namespace UniversityWebApp
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                 namespaces: new[] { "UniversityWebApp.Controllers" }
+                namespaces: new[] { "UniversityWebApp.Controllers" }
 
             );
         }
