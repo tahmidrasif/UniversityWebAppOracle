@@ -7,19 +7,20 @@ using UniversityWebApp.Areas.Admin.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
-    public class CourseGateway:Gateway
+    public class CourseTeacherEnrollGateway : Gateway
     {
-        public OracleCommand OracleCommand { get; set; }
+         public OracleCommand OracleCommand { get; set; }
         public OracleDataReader OracleDataReader { get; set; }
-        public CourseGateway()
+        public CourseTeacherEnrollGateway()
             : base("UniversityWebAppOracle")
         {
 
         }
 
-        public int Insert(Course course)
+        public int Insert(CourseTeacherEnroll courseTeacherEnroll)
         {
-            string query = string.Format(@"INSERT INTO COURSE (NAME,CODE,CREDIT,DEPARTMENTID) VALUES('" + course.Name + "','" + course.Code + "'," + course.Credit + "," + course.DepartmentId + ")");
+            var date = courseTeacherEnroll.DateTime.ToString("yyyy/MM/dd");
+            string query = string.Format(@"INSERT INTO COURSETEACHERENROLL (TEACHERID,COURSEID,SEMESTER,ENROLLDATE) VALUES(" + courseTeacherEnroll.TeacherId + "," + courseTeacherEnroll.CourseId + ",'" + courseTeacherEnroll.Semester + "',TO_DATE('" + date + "', 'YYYY-MM-DD HH:mi:ss'))");
 
             try
             {
@@ -39,10 +40,10 @@ namespace UniversityWebApp.Repository.Gateway
 
         }
 
-        public void Edit(Course course)
+        public void Edit(CourseTeacherEnroll courseTeacherEnroll)
         {
 
-            string query = string.Format(@"UPDATE COURSE SET NAME='" + course.Name + "',CODE='" + course.Code + "',CREDIT=" + course.Credit + ",DEPARTMENTID=" + course.DepartmentId+ " WHERE COURSEID=" + course.CourseId);
+            string query = string.Format(@"UPDATE COURSETEACHERENROLL SET TEACHERID=" + courseTeacherEnroll.TeacherId + ",COURSEID=" + courseTeacherEnroll.CourseId + ",SEMESTER='" + courseTeacherEnroll.Semester + "',ENROLLDATE=TO_DATE('" + courseTeacherEnroll.DateTime + "', 'YYYY-MM-DD HH:mi:ss') WHERE COURSETEACHERENROLLID=" + courseTeacherEnroll.CourseTeacherEnrollId);
 
             try
             {
@@ -60,10 +61,10 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
-        public List<Course> GetAll()
+        public List<CourseTeacherEnroll> GetAll()
         {
-            string query = string.Format(@"SELECT * FROM COURSE");
-            var courses = new List<Course>();
+            string query = string.Format(@"SELECT * FROM COURSETEACHERENROLL");
+            var courseTeacherEnrollList = new List<CourseTeacherEnroll>();
             try
             {
                 OracleConnection.Open();
@@ -73,13 +74,13 @@ namespace UniversityWebApp.Repository.Gateway
                 {
                     while (OracleDataReader.Read())
                     {
-                        Course course=new Course();
-                        course.CourseId= Convert.ToInt16(OracleDataReader[0]);
-                        course.Name = OracleDataReader[1].ToString();
-                        course.Code = OracleDataReader[2].ToString();
-                        course.Credit = Convert.ToDouble(OracleDataReader[3]);
-                        course.DepartmentId = Convert.ToInt16(OracleDataReader[4]);
-                        courses.Add(course);
+                        var courseTeacherEnroll = new CourseTeacherEnroll();
+                        courseTeacherEnroll.CourseTeacherEnrollId = Convert.ToInt16(OracleDataReader[0]);
+                        courseTeacherEnroll.TeacherId = Convert.ToInt16(OracleDataReader[1]);
+                        courseTeacherEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
+                        courseTeacherEnroll.Semester = OracleDataReader[3].ToString();
+                        courseTeacherEnroll.DateTime = (DateTime) OracleDataReader[4];
+                        courseTeacherEnrollList.Add(courseTeacherEnroll);
                     }
                 }
             }
@@ -91,14 +92,14 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return courses;
+            return courseTeacherEnrollList;
 
         }
 
-        public Course GetById(int? id)
+        public CourseTeacherEnroll GetById(int? id)
         {
-            Course course=new Course();
-            string query = string.Format(@"SELECT * FROM COURSE WHERE COURSEID=" + id);
+            var courseTeacherEnroll = new CourseTeacherEnroll();
+            string query = string.Format(@"SELECT * FROM COURSETEACHERENROLL WHERE COURSETEACHERENROLLID=" + id);
             try
             {
                 if (id != null)
@@ -111,11 +112,11 @@ namespace UniversityWebApp.Repository.Gateway
                     {
                         while (OracleDataReader.Read())
                         {
-                            course.CourseId = Convert.ToInt16(OracleDataReader[0]);
-                            course.Name = OracleDataReader[1].ToString();
-                            course.Code = OracleDataReader[2].ToString();
-                            course.Credit = Convert.ToDouble(OracleDataReader[3]);
-                            course.DepartmentId = Convert.ToInt16(OracleDataReader[4]);
+                            courseTeacherEnroll.CourseTeacherEnrollId = Convert.ToInt16(OracleDataReader[0]);
+                            courseTeacherEnroll.TeacherId = Convert.ToInt16(OracleDataReader[1]);
+                            courseTeacherEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
+                            courseTeacherEnroll.Semester = OracleDataReader[3].ToString();
+                            courseTeacherEnroll.DateTime = (DateTime)OracleDataReader[4];
                         }
                     }
                 }
@@ -128,15 +129,15 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return course;
+            return courseTeacherEnroll;
 
         }
 
        
         public void Delete(int? id)
         {
-            
-                string query = string.Format(@"DELETE FROM  COURSE  WHERE COURSEID=" + id);
+
+            string query = string.Format(@"DELETE FROM  COURSETEACHERENROLL  WHERE COURSETEACHERENROLLID=" + id);
                 try
                 {
                     if (id != null)

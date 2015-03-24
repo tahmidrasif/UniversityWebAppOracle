@@ -12,7 +12,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class TeacherController : Controller
     {
         UserGateway aUserGateway=new UserGateway();
@@ -145,6 +145,13 @@ namespace UniversityWebApp.Areas.Admin.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+
+        public JsonResult GetTeachersByDeptId(int id)
+        {
+            List<Models.Teacher> teachers = aTeacherGateway.GetAll().Where(x => x.DepartmentId == id).ToList();
+            //List<string> students= new List<string>(){"Rasif","Tahmid","Islam"};
+            return Json(new SelectList(teachers, "TeacherId", "Name"), JsonRequestBehavior.AllowGet);
         }
     }
 }

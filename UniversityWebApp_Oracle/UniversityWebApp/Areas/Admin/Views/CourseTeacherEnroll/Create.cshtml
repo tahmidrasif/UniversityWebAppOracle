@@ -1,0 +1,144 @@
+﻿@model UniversityWebApp.Areas.Admin.Models.CourseTeacherEnroll
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+    <body>
+        <br/>
+        <div class="alert alert-danger" role="alert">@ViewBag.ErrorMsg</div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>CourseTeacherEnroll</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+            
+                <div class="form-group">
+                    @Html.Label("Select Department", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Departments",string.Empty)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TeacherId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("TeacherId",string.Empty)
+                        @Html.ValidationMessageFor(model => model.TeacherId)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CourseId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("CourseId",string.Empty)
+                        @Html.ValidationMessageFor(model => model.CourseId)
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateTime, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div id="datetimepicker" class="input-append date">
+                            @Html.EditorFor(model => model.DateTime)
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                            @Html.ValidationMessageFor(model => model.DateTime)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Semester, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Semester",string.Empty)
+                        @Html.ValidationMessageFor(model => model.Semester)
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </body>
+</html>
+@section scripts{
+    <script type="text/javascript">
+        $('#datetimepicker').datetimepicker({
+            //format: 'MM/dd/yyyy',
+            format: 'yyyy/MM/dd',
+            pickTime: false,
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+                $("#Departments").change(function () {
+                    var optionSelceted = $(this).find("option:selected");
+
+                    var departmentId = optionSelceted.val();
+                    var data = { id: departmentId };
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetTeachersByDeptId", "Teacher",new { area = "Admin" })',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ 'id': departmentId }),
+                        dataType: "json",
+                        success: function(teachers) {
+                            var items = "";
+                            $.each(teachers, function(i, item) {
+                                items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                            });
+
+                            $("#TeacherId").html(items);
+
+                        },
+                        error: function(xhr) { alert("Something is wrong"); }
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCourseByDeptId", "Course",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': departmentId }),
+                    dataType: "json",
+                    success: function (courses) {
+                        var items = "";
+                        $.each(courses, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#CourseId").html(items);
+     
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+            });
+            
+
+        });
+    </script>
+}
+@section css{
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+}
