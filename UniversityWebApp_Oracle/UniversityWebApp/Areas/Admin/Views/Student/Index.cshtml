@@ -1,79 +1,179 @@
 ﻿@model IEnumerable<UniversityWebApp.Areas.Admin.Models.Student>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.RegistrationNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model=>model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cgpa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistrationNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cgpa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |
-           
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentId })
-        </td>
-    </tr>
+
+
+<div id="StudentTableContainer">
+
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'Teacher Table',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name ASC',
+
+                actions: {
+                    listAction: '/Admin/Student/List',
+                    createAction: '/Admin/Student/Create',
+                    updateAction: '/Admin/Student/Edit',
+                    deleteAction: '/Admin/Student/Delete'
+                },
+
+                fields: {
+                    StudentId: {
+                        key: true,
+                        list: false,
+
+                    },
+                    RegistrationNo: {
+                        title: 'Registration Number',
+                        key: true,
+                        create: true,
+                        edit: true,
+                    },
+                    Name: {
+                        title: 'Student Name',
+                        width: '40%',
+                        list: true,
+                        create: false,
+                        edit: false,
+                    },
+                    Email: {
+                        title: 'Email',
+                        width: '20%',
+                        list: true,
+                        create: false,
+                        edit: false,
+                    },
+
+                    Address: {
+                        title: 'Address',
+                        width: '20%',
+                        list: true,
+                        create: false,
+                        edit: false,
+                    },
+                    Cgpa: {
+                        title: 'Cgpa',
+                        width: '20%',
+                        list: true,
+                        create: false,
+                        edit: false,
+                    },
+                    DepartmentId: {
+                        title: 'Department',
+                        width: '20%',
+                        options: '/Admin/Student/GetDepartment',
+                        edit: true,
+                    },
+
+                    UserId: {
+                        title: 'User Name',
+                        key: true,
+                        list: false,
+                        options: '/Admin/Student/GetUserName',
+                        create: true,
+                        edit: true,
+                    },
+
+                }
+            });
+
+            $('#StudentTableContainer').jtable('load');
+
+        });
+
+
+    </script>
 }
 
-</table>
+
+
+
+
+
+
+@*<table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cgpa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cgpa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
+                </td>
+            </tr>
+        }
+    </table>*@
+

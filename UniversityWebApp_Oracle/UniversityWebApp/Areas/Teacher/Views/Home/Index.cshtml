@@ -25,7 +25,7 @@
     <br />
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("View Courses", "Edit", new { id = Model.Id }) |
     </p>
 </div>
 
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <h4>@Html.DisplayNameFor(model => model.CreditToBeTaken)</h4>
-                    @Html.DisplayNameFor(model => model.RemainingCredit)
+                    @Html.DisplayFor(model => model.CreditToBeTaken)
                 </div>
             </div>
             <br />

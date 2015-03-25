@@ -32,7 +32,7 @@ namespace UniversityWebApp.Areas.Student.Controllers
                 
                 return View(student);
             }
-            return RedirectToAction("Index","Home",new {area=""});
+            return RedirectToAction("LogOut","Home",new {area=""});
         }
         public ActionResult Edit(int? id)
         {

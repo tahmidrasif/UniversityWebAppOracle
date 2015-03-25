@@ -14,6 +14,7 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
     {
         //
         // GET: /Teacher/Home/
+        private int flag = 0;
         TeacherViewModel aModel=new TeacherViewModel();
         TeacherGateway aTeacherGateway=new TeacherGateway();
         UserGateway aUserGateway=new UserGateway();
@@ -22,32 +23,53 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
         public ActionResult Index()
         {
             SetViewModel();
-            return View(aModel);
+
+            if (flag == 1)
+            {
+                return View(aModel); 
+            }
+            return RedirectToAction("LogOut", "Home", new { area = "" });
         }
 
         private void SetViewModel()
         {
-            var user = (User) Session["User"];
+            var user = (User)Session["User"];
             var aUser = aUserGateway.GetById(user.UserId);
-            aModel.UserName = aUser.UserName;
-            aModel.Email = aUser.Email;
-            aModel.Password = aUser.Password;
-            var teachers = aTeacherGateway.GetAll();
-            var teacher = teachers.FirstOrDefault(x => x.UserId == aUser.UserId);
-            var department = aDepartmentGateway.GetById(teacher.DepartmentId);
-            var deptName = department.Name;
-            if (teacher != null)
+
+            if (TeacherIsCreated(aUser))
             {
-                aModel.CreditToBeTaken = teacher.CreditToBeTaken;
-                aModel.RemainingCredit = teacher.RemainingCredit;
-                aModel.Name = teacher.Name;
-                aModel.ImagePath = teacher.ImagePath;
-                aModel.DepartmentName = deptName;
-                aModel.Designation = teacher.Designation;
-                aModel.TeacherId = teacher.TeacherId;
-                aModel.UserId = user.UserId;
+                aModel.UserName = aUser.UserName;
+                aModel.Email = aUser.Email;
+                aModel.Password = aUser.Password;
+                var teachers = aTeacherGateway.GetAll();
+                var teacher = teachers.FirstOrDefault(x => x.UserId == aUser.UserId);
+                var department = aDepartmentGateway.GetById(teacher.DepartmentId);
+                var deptName = department.Name;
+                if (teacher != null)
+                {
+                    aModel.CreditToBeTaken = teacher.CreditToBeTaken;
+                    aModel.RemainingCredit = teacher.RemainingCredit;
+                    aModel.Name = teacher.Name;
+                    aModel.ImagePath = teacher.ImagePath;
+                    aModel.DepartmentName = deptName;
+                    aModel.Designation = teacher.Designation;
+                    aModel.TeacherId = teacher.TeacherId;
+                    aModel.UserId = user.UserId;
+                }
+                flag = 1;
             }
+
+           
         }
+
+        private bool TeacherIsCreated(User aUser)
+        {
+            var teachr = aTeacherGateway.GetAll().FirstOrDefault(x => x.UserId == aUser.UserId);
+            if (teachr != null)
+                return true;
+            return false;
+        }
+
 
         public ActionResult Edit(int? id)
         {

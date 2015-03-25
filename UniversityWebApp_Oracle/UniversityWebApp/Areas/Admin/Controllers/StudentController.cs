@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -9,111 +10,118 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
         private StudentGateway aStudentGateway=new StudentGateway();
         private UserGateway aUserGateway=new UserGateway();
         private DepartmentGateway aDepartmentGateway=new DepartmentGateway();
         // GET: /Admin/Student/
+
+
         public ActionResult Index()
         {
-
-            return View(aStudentGateway.GetAll());
-        }
-
-        // GET: /Admin/Student/Details/5
-
-
-        // GET: /Admin/Student/Create
-        public ActionResult Create()
-        {
-            var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
-            ViewBag.UserId = new SelectList(students, "UserId", "UserName");
-            ViewBag.DepartmentId = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name");
             return View();
         }
 
-        // POST: /Admin/Student/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Models.Student student)
+
+        public JsonResult List(int jtStartIndex, int jtPageSize)
         {
-            var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
-            var user = aUserGateway.GetById(student.UserId);
-            student.Email = user.Email;
-            if (ModelState.IsValid)
+
+            try
             {
+                var students = aStudentGateway.GetAll();
+                var studentCount = students.Count;
+                var studentlist = students.Distinct().Skip(jtStartIndex).Take(jtPageSize).ToList();
+                return Json(new { Result = "OK", Records = studentlist, TotalRecordCount = studentCount });
+                //Higlighted text are for pagination
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult Create(Models.Student student)
+        {
+            try
+            {
+                //var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
+                var user = aUserGateway.GetById(student.UserId);
+                student.Email = user.Email;
                 aStudentGateway.Insert(student);
-                return RedirectToAction("Index");
+                return Json(new { Result = "OK", Record = student });
             }
-
-            ViewBag.UserId = new SelectList(students, "UserId", "UserName", student.User.UserName);
-            ViewBag.DepartmentId = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name",student.Departments.Name); 
-            return View(student);
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
-        // GET: /Admin/Student/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UniversityWebApp.Areas.Admin.Models.Student student = aStudentGateway.GetById(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
 
-            ViewBag.UserId = new SelectList(students, "UserId", "UserName");
-            ViewBag.DepartmentId = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name"); 
-            return View(student);
-        }
 
-        // POST: /Admin/Student/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(UniversityWebApp.Areas.Admin.Models.Student student)
+        public JsonResult Delete(int StudentId)
         {
-            var students = aUserGateway.GetAll().Where(x => x.UserType == "Student");
-            if (ModelState.IsValid)
+            try
+            {
+                aStudentGateway.Delete(StudentId);
+                return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Edit(Models.Student student)
+        {
+            try
             {
                 aStudentGateway.Edit(student);
-                return RedirectToAction("Index");
+                return Json(new { Result = "OK", Record = student });
             }
-            ViewBag.UserId = new SelectList(students, "UserId", "UserName");
-            ViewBag.DepartmentId = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name"); 
-            return View(student);
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
-        // GET: /Admin/Student/Delete/5
-        public ActionResult Delete(int? id)
+        public JsonResult GetUserName()
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var users = aUserGateway.GetAll().Where(x => x.UserType == "Student").Select(c => new { DisplayText = c.UserName, Value = c.UserId }).OrderBy(s => s.DisplayText);
+                return Json(new { Result = "OK", Options = users });
             }
-            UniversityWebApp.Areas.Admin.Models.Student student = aStudentGateway.GetById(id);
-            if (student == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                return Json(new { Result = "ERROR", Message = ex.Message });
             }
-            return View(student);
         }
 
-        // POST: /Admin/Student/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        public JsonResult GetDepartment()
         {
-            aStudentGateway.Delete(id);
-            return RedirectToAction("Index");
+            try
+            {
+                var aDepartmentGateway = new DepartmentGateway();
+                var continentals =
+                    aDepartmentGateway.GetAll()
+                        .Select(c => new { DisplayText = c.Code, Value = c.DepartmentId })
+                        .OrderBy(s => s.DisplayText);
+                return Json(new { Result = "OK", Options = continentals });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
+
 
     }
 }
