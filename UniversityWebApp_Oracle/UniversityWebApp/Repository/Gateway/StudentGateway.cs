@@ -78,6 +78,27 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
+        public void EditByTeacher(double cgpa,int id)
+        {
+
+            string query = string.Format(@"UPDATE STUDENT SET CGPA=" + cgpa + "  WHERE STUDENTID=" + id);
+
+            try
+            {
+                OracleConnection.Open();
+                OracleCommand = new OracleCommand(query, OracleConnection);
+                int isAffected = OracleCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error in inserting", exception);
+            }
+            finally
+            {
+                OracleConnection.Close();
+            }
+
+        }
         public List<Student> GetAll()
         {
             string query = string.Format(@"SELECT * FROM STUDENT");

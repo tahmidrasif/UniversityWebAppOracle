@@ -21,6 +21,8 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
         CourseGateway aCourseGateway=new CourseGateway();
         CourseTeacherEnrollGateway aCourseTeacherEnrollGateway=new CourseTeacherEnrollGateway();
         CourseStudentEnrollGateway aCourseStudentEnrollGateway=new CourseStudentEnrollGateway();
+        private List<double> totalGpa = new List<double>();
+        private List<double> totalCredit = new List<double>();
         // GET: /Teacher/TeacherCourseResult/
         public ActionResult Index(int id)
         {
@@ -78,13 +80,46 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TeacherCourseResultViewModel teachercourseresultviewmodel)
         {
+
             if (teachercourseresultviewmodel.Score > 0 && teachercourseresultviewmodel.Score <= 100)
             {
                 aCourseStudentEnrollGateway.EditByTeacher(teachercourseresultviewmodel);
+                var enrolls = aCourseStudentEnrollGateway.GetAll().Where(x => x.StudentId == teachercourseresultviewmodel.StudentId);
+                foreach (var aEnroll in enrolls)
+                {
+                    var credit = aCourseGateway.GetById(aEnroll.CourseId).Credit;
+                    double number = aEnroll.Score;
+                    double grade = GetGpa(number);
+                    totalCredit.Add(credit);
+                    var gpa = credit * grade;
+                    totalGpa.Add(gpa);
+
+                }
+                var cgpa = totalGpa.Sum() / totalCredit.Sum();
+                aStudentGateway.EditByTeacher(cgpa,teachercourseresultviewmodel.StudentId);
+
                 return RedirectToAction("Index","Home",new {area="Teacher"});
+
             }
  
             return RedirectToAction("Create");
+        }
+
+        private double GetGpa(double number)
+        {
+            if (number >= 80)
+                return 4;
+            if (number >= 70 && number < 80)
+                return 3.5;
+            if (number >= 60 && number < 70)
+                return 3.0;
+            if (number >= 50 && number < 60)
+                return 2.5;
+            if (number >= 40 && number < 50)
+                return 2.0;
+            if (number >= 0 && number < 40)
+                return 0;
+            return 0;
         }
 
         // GET: /Teacher/TeacherCourseResult/Edit/5

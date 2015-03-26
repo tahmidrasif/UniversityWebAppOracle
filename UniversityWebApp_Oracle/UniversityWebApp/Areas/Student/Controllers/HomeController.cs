@@ -16,6 +16,8 @@ namespace UniversityWebApp.Areas.Student.Controllers
         StudentGateway aStudentGateway=new StudentGateway();
         DepartmentGateway aDepartmentGateway=new DepartmentGateway();
         UserGateway aUserGateway=new UserGateway();
+        CourseStudentEnrollGateway aCourseStudentEnrollGateway=new CourseStudentEnrollGateway();
+        CourseGateway aCourseGateway=new CourseGateway();
         //
         // GET: /Student/Home/
         [Authorize(Roles = "Student")]
@@ -29,11 +31,13 @@ namespace UniversityWebApp.Areas.Student.Controllers
             if (student!=null)
             {
                 ViewBag.departmentName = aDepartmentGateway.GetById(student.DepartmentId).Name;
-                
                 return View(student);
             }
             return RedirectToAction("LogOut","Home",new {area=""});
         }
+
+      
+
         public ActionResult Edit(int? id)
         {
             var student = aStudentGateway.GetById(id);
