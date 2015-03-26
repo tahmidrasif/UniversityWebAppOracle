@@ -81,10 +81,14 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         
-                        <li>@Html.ActionLink("View USER Details", "Index", "User", new { area = "Admin" }, null)</li>
-                        <li>@Html.ActionLink("View Stdeunt Details", "Index", "Student", new { area = "Admin" }, null)</li>
-                        <li>@Html.ActionLink("View Department Details", "Index", "Department", new { area = "Admin" }, null)</li>
+                        @*<li>@Html.ActionLink("View USER Details", "Index", "User", new { area = "Admin" }, null)</li>*@
+                        @*<li>@Html.ActionLink("View Stdeunt Details", "Index", "Student", new { area = "Admin" }, null)</li>*@
+                        @*<li>@Html.ActionLink("View Department Details", "Index", "Department", new { area = "Admin" }, null)</li>*@
                         <li>@Html.ActionLink("View Course Details", "Index", "Course", new { area = "Admin" }, null)</li>
+                        @*<li>@Html.ActionLink("View Teacher Details", "Index", "Teacher", new { area = "Admin" }, null)</li>*@
+                        <li>@Html.ActionLink("View Room Details", "Index", "Room", new { area = "Admin" }, null)</li>
+                        <li>@Html.ActionLink("Enroll Course To Teacher", "Index", "CourseTeacherEnroll", new { area = "Admin" }, null)</li>
+                        <li>@Html.ActionLink("Enroll Course To Student", "Index", "CourseStudentEnroll", new { area = "Admin" }, null)</li>
 
                     </ul>
                 </div>
@@ -176,14 +180,14 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge">@Session["TeacherCount"]</div>
+                                    <div>Total Teacher</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">@Html.ActionLink("View Details", "Index", "Teacher", new { area = "Admin" }, null)</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>

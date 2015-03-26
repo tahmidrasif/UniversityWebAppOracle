@@ -71,6 +71,7 @@ namespace UniversityWebApp.Controllers
             Session["UserCount"] = null;
             Session["StudentCount"] = null;
             Session["DepartmentCount"] = null;
+            Session["TeacherCount"] = null;
             return RedirectToAction("Index");
 
         }

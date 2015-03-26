@@ -12,17 +12,22 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         UserGateway aUserGateway = new UserGateway();
         StudentGateway aStudentGateway = new StudentGateway();
         DepartmentGateway aDepartmentGateway = new DepartmentGateway();
-
+        TeacherGateway  aTeacherGateway=new TeacherGateway();
         //
         // GET: /Admin/Home/
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            Session["UserCount"] = aUserGateway.GetAll().Count;
-            Session["StudentCount"] = aStudentGateway.GetAll().Count;
-            Session["DepartmentCount"] = aDepartmentGateway.GetAll().Count;
+            GetCountValue();
             return View();
         }
 
+        public void GetCountValue()
+        {
+            Session["UserCount"] = aUserGateway.GetAll().Count;
+            Session["StudentCount"] = aStudentGateway.GetAll().Count;
+            Session["DepartmentCount"] = aDepartmentGateway.GetAll().Count;
+            Session["TeacherCount"] = aTeacherGateway.GetAll().Count;
+        }
     }
 }

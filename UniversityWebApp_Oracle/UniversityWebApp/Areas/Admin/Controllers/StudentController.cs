@@ -11,7 +11,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
         private StudentGateway aStudentGateway=new StudentGateway();

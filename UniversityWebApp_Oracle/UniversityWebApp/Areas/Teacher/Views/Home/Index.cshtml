@@ -25,7 +25,8 @@
     <br />
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("View Courses", "ViewCourse", new { area="Teacher",id = Model.TeacherId }) |
+        @Html.ActionLink("View Courses", "Create", "TeacherCourseResult", new { id = Model.TeacherId },null)  |
+        @*new { area = "Teacher", id = Model.TeacherId }*@
     </p>
 </div>
 
@@ -54,7 +55,7 @@
                     @Html.DisplayFor(model => model.Designation)
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <h4>@Html.DisplayFor(model => model.Email)</h4>
+                    <h4>@Html.DisplayNameFor(model => model.Email)</h4>
                     @Html.DisplayFor(model => model.Email)
                 </div>
                 <div class="col-sm-6 col-md-4">

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Oracle.ManagedDataAccess.Client;
 using UniversityWebApp.Areas.Admin.Models;
+using UniversityWebApp.Areas.Teacher.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
@@ -61,6 +62,29 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
+
+        public void EditByTeacher(TeacherCourseResultViewModel teachercourseresultviewmodel)
+        {
+
+            string query = string.Format(@"UPDATE COURSESTUDENTENROLL SET SCORE=" + teachercourseresultviewmodel.Score + " WHERE STUDENTID=" + teachercourseresultviewmodel.StudentId + " AND COURSEID=" + teachercourseresultviewmodel.CourseId);
+
+            try
+            {
+                OracleConnection.Open();
+                OracleCommand = new OracleCommand(query, OracleConnection);
+                int isAffected = OracleCommand.ExecuteNonQuery();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error in inserting", exception);
+            }
+            finally
+            {
+                OracleConnection.Close();
+            }
+
+        }
+
         public List<CourseStudentEnroll> GetAll()
         {
             string query = string.Format(@"SELECT * FROM COURSESTUDENTENROLL");
@@ -80,6 +104,10 @@ namespace UniversityWebApp.Repository.Gateway
                         courseStudentEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
                         courseStudentEnroll.Semester = OracleDataReader[3].ToString();
                         courseStudentEnroll.DateTime = (DateTime)OracleDataReader[4];
+                        if (OracleDataReader[5] != DBNull.Value)
+                        {
+                            courseStudentEnroll.Score = Convert.ToDouble(OracleDataReader[5]);
+                        }
                         courseStudentEnrollList.Add(courseStudentEnroll);
                     }
                 }
@@ -117,6 +145,10 @@ namespace UniversityWebApp.Repository.Gateway
                             courseStudentEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
                             courseStudentEnroll.Semester = OracleDataReader[3].ToString();
                             courseStudentEnroll.DateTime = (DateTime)OracleDataReader[4];
+                            if (OracleDataReader[5] != DBNull.Value)
+                            {
+                                courseStudentEnroll.Score = Convert.ToDouble(OracleDataReader[5]);
+                            }
                         }
                     }
                 }
