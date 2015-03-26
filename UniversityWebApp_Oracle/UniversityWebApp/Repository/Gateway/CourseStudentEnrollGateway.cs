@@ -7,20 +7,20 @@ using UniversityWebApp.Areas.Admin.Models;
 
 namespace UniversityWebApp.Repository.Gateway
 {
-    public class CourseTeacherEnrollGateway : Gateway
+    public class CourseStudentEnrollGateway:Gateway
     {
-        public OracleCommand OracleCommand { get; set; }
+         public OracleCommand OracleCommand { get; set; }
         public OracleDataReader OracleDataReader { get; set; }
-        public CourseTeacherEnrollGateway()
+        public CourseStudentEnrollGateway()
             : base("UniversityWebAppOracle")
         {
 
         }
 
-        public int Insert(CourseTeacherEnroll courseTeacherEnroll)
+        public int Insert(CourseStudentEnroll courseStudentEnroll)
         {
-            var date = courseTeacherEnroll.DateTime.ToString("yyyy/MM/dd");
-            string query = string.Format(@"INSERT INTO COURSETEACHERENROLL (TEACHERID,COURSEID,SEMESTER,ENROLLDATE) VALUES(" + courseTeacherEnroll.TeacherId + "," + courseTeacherEnroll.CourseId + ",'" + courseTeacherEnroll.Semester + "',TO_DATE('" + date + "', 'YYYY-MM-DD HH:mi:ss'))");
+            var date = courseStudentEnroll.DateTime.ToString("yyyy/MM/dd");
+            string query = string.Format(@"INSERT INTO COURSESTUDENTENROLL (STUDENTID ,COURSEID,SEMESTER,ENROLLDATE) VALUES(" + courseStudentEnroll.StudentId + "," + courseStudentEnroll.CourseId + ",'" + courseStudentEnroll.Semester + "',TO_DATE('" + date + "', 'YYYY-MM-DD HH:mi:ss'))");
 
             try
             {
@@ -40,10 +40,10 @@ namespace UniversityWebApp.Repository.Gateway
 
         }
 
-        public void Edit(CourseTeacherEnroll courseTeacherEnroll)
+        public void Edit(CourseStudentEnroll courseStudentEnroll)
         {
-            var date = courseTeacherEnroll.DateTime.ToString("yyyy/MM/dd");
-            string query = string.Format(@"UPDATE COURSETEACHERENROLL SET TEACHERID=" + courseTeacherEnroll.TeacherId + ",COURSEID=" + courseTeacherEnroll.CourseId + ",SEMESTER='" + courseTeacherEnroll.Semester + "',ENROLLDATE=TO_DATE('" + date + "', 'YYYY-MM-DD HH:mi:ss') WHERE COURSETEACHERENROLLID=" + courseTeacherEnroll.CourseTeacherEnrollId);
+            var date = courseStudentEnroll.DateTime.ToString("yyyy/MM/dd");
+            string query = string.Format(@"UPDATE COURSESTUDENTENROLL SET STUDENTID=" + courseStudentEnroll.StudentId + ",COURSEID=" + courseStudentEnroll.CourseId + ",SEMESTER='" + courseStudentEnroll.Semester + "',ENROLLDATE=TO_DATE('" + date + "', 'YYYY-MM-DD HH:mi:ss') WHERE COURSETEACHERENROLLID=" + courseStudentEnroll.CourseStudentEnrollId);
 
             try
             {
@@ -61,10 +61,10 @@ namespace UniversityWebApp.Repository.Gateway
             }
 
         }
-        public List<CourseTeacherEnroll> GetAll()
+        public List<CourseStudentEnroll> GetAll()
         {
-            string query = string.Format(@"SELECT * FROM COURSETEACHERENROLL");
-            var courseTeacherEnrollList = new List<CourseTeacherEnroll>();
+            string query = string.Format(@"SELECT * FROM COURSESTUDENTENROLL");
+            var courseStudentEnrollList = new List<CourseStudentEnroll>();
             try
             {
                 OracleConnection.Open();
@@ -74,13 +74,13 @@ namespace UniversityWebApp.Repository.Gateway
                 {
                     while (OracleDataReader.Read())
                     {
-                        var courseTeacherEnroll = new CourseTeacherEnroll();
-                        courseTeacherEnroll.CourseTeacherEnrollId = Convert.ToInt16(OracleDataReader[0]);
-                        courseTeacherEnroll.TeacherId = Convert.ToInt16(OracleDataReader[1]);
-                        courseTeacherEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
-                        courseTeacherEnroll.Semester = OracleDataReader[3].ToString();
-                        courseTeacherEnroll.DateTime = (DateTime)OracleDataReader[4];
-                        courseTeacherEnrollList.Add(courseTeacherEnroll);
+                        var courseStudentEnroll = new CourseStudentEnroll();
+                        courseStudentEnroll.CourseStudentEnrollId = Convert.ToInt16(OracleDataReader[0]);
+                        courseStudentEnroll.StudentId = Convert.ToInt16(OracleDataReader[1]);
+                        courseStudentEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
+                        courseStudentEnroll.Semester = OracleDataReader[3].ToString();
+                        courseStudentEnroll.DateTime = (DateTime)OracleDataReader[4];
+                        courseStudentEnrollList.Add(courseStudentEnroll);
                     }
                 }
             }
@@ -92,14 +92,14 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return courseTeacherEnrollList;
+            return courseStudentEnrollList;
 
         }
 
-        public CourseTeacherEnroll GetById(int? id)
+        public CourseStudentEnroll GetById(int? id)
         {
-            var courseTeacherEnroll = new CourseTeacherEnroll();
-            string query = string.Format(@"SELECT * FROM COURSETEACHERENROLL WHERE COURSETEACHERENROLLID=" + id);
+            var courseStudentEnroll = new CourseStudentEnroll();
+            string query = string.Format(@"SELECT * FROM COURSESTUDENTENROLL WHERE COURSESTUDENTENROLLID=" + id);
             try
             {
                 if (id != null)
@@ -112,11 +112,11 @@ namespace UniversityWebApp.Repository.Gateway
                     {
                         while (OracleDataReader.Read())
                         {
-                            courseTeacherEnroll.CourseTeacherEnrollId = Convert.ToInt16(OracleDataReader[0]);
-                            courseTeacherEnroll.TeacherId = Convert.ToInt16(OracleDataReader[1]);
-                            courseTeacherEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
-                            courseTeacherEnroll.Semester = OracleDataReader[3].ToString();
-                            courseTeacherEnroll.DateTime = (DateTime)OracleDataReader[4];
+                            courseStudentEnroll.CourseStudentEnrollId = Convert.ToInt16(OracleDataReader[0]);
+                            courseStudentEnroll.StudentId = Convert.ToInt16(OracleDataReader[1]);
+                            courseStudentEnroll.CourseId = Convert.ToInt16(OracleDataReader[2]);
+                            courseStudentEnroll.Semester = OracleDataReader[3].ToString();
+                            courseStudentEnroll.DateTime = (DateTime)OracleDataReader[4];
                         }
                     }
                 }
@@ -129,7 +129,7 @@ namespace UniversityWebApp.Repository.Gateway
             {
                 OracleConnection.Close();
             }
-            return courseTeacherEnroll;
+            return courseStudentEnroll;
 
         }
 
@@ -137,7 +137,7 @@ namespace UniversityWebApp.Repository.Gateway
         public void Delete(int? id)
         {
 
-            string query = string.Format(@"DELETE FROM  COURSETEACHERENROLL  WHERE COURSETEACHERENROLLID=" + id);
+            string query = string.Format(@"DELETE FROM  COURSESTUDENTENROLL  WHERE COURSESTUDENTENROLLID=" + id);
             try
             {
                 if (id != null)

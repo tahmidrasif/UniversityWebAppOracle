@@ -114,5 +114,9 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
                 return true;
             return false;
         }
+        public ActionResult ViewCourse(int id)
+        {
+            return View();
+        }
     }
 }

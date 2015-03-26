@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
         private StudentGateway aStudentGateway=new StudentGateway();
@@ -123,5 +124,11 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         }
 
 
+        public JsonResult GetStudentByDeptId(int id)
+        {
+            List<Models.Student> students = aStudentGateway.GetAll().Where(x => x.DepartmentId == id).ToList();
+            //List<string> students= new List<string>(){"Rasif","Tahmid","Islam"};
+            return Json(new SelectList(students, "StudentId", "Name"), JsonRequestBehavior.AllowGet);
+        }
     }
 }

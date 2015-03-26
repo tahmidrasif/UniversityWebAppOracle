@@ -24,6 +24,5 @@ namespace UniversityWebApp.Areas.Admin.Controllers
             return View();
         }
 
-        
     }
 }

@@ -81,7 +81,8 @@ namespace UniversityWebApp.Areas.Student.Controllers
             }
             return RedirectToAction("Index");
         }
- 
 
-	}
+
+        
+    }
 }
