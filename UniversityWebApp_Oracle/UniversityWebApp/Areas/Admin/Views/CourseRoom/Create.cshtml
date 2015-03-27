@@ -1,0 +1,195 @@
+﻿@model UniversityWebApp.Areas.Admin.Models.CourseRoomEnroll
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="alert alert-danger" role="alert">@ViewBag.ErrorMsg</div>
+        <hr />
+        @Html.ValidationSummary(true)
+        
+        <div class="form-group">
+            <label for="Departments">Department Name</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Departments", string.Empty)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="CourseId">Select Course</label>
+            <div class="col-md-10">
+                @Html.DropDownList("CourseId", String.Empty)
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="TeacherId">Select Teacher</label>
+            <div class="col-md-10">
+                @Html.DropDownList("TeacherId", String.Empty)
+                @Html.ValidationMessageFor(model => model.CourseId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="RoomId">Select Room</label>
+            <div class="col-md-10">
+                @Html.DropDownList("RoomId", String.Empty)
+                @Html.ValidationMessageFor(model => model.RoomId)
+            </div>
+        </div>
+ 
+        <div class="form-group">
+            <label for="date">Select Date</label>
+            <div class="col-md-10">
+                <div id="date" class="input-append date">
+                    @Html.EditorFor(model => model.Date)
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.Date)
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="starttime">Start Time</label>
+            <div class="col-md-10">
+                <div id="starttime" class="input-append date">
+                    @Html.EditorFor(model => model.StratingTime)
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.StratingTime)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="endtime">End Time</label>
+            <div class="col-md-10">
+                <div id="endtime" class="input-append date">
+                    @Html.EditorFor(model => model.EndTime)
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.EndTime)
+                </div>
+            </div>
+        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#date').datetimepicker({
+            format: 'yyyy/MM/dd',
+            pickTime: false,
+        });
+        $('#starttime').datetimepicker({
+            //format: 'MM/dd/yyyy',
+            format: 'hh:mm:ss',
+            pick12HourFormat: true,
+            pickDate: false
+
+        });
+        $('#endtime').datetimepicker({
+            //format: 'MM/dd/yyyy',
+            format: 'hh:mm:ss',
+            pick12HourFormat: true,
+            pickDate: false
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#Departments").change(function () {
+                var optionSelceted = $(this).find("option:selected");
+
+                var departmentId = optionSelceted.val();
+                var data = { id: departmentId };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTeachersByDeptId", "Teacher",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': departmentId }),
+                    dataType: "json",
+                    success: function (teachers) {
+                        var items = "";
+                        $.each(teachers, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#TeacherId").html(items);
+
+
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCourseByDeptId", "Course",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': departmentId }),
+                    dataType: "json",
+                    success: function (courses) {
+                        var items = "";
+                        $.each(courses, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#CourseId").html(items);
+
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetRoomByDeptId", "Room",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': departmentId }),
+                    dataType: "json",
+                    success: function (rooms) {
+                        var items = "";
+                        $.each(rooms, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#RoomId").html(items);
+
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+            });
+
+
+        });
+    </script>
+}
+@section css{
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+}

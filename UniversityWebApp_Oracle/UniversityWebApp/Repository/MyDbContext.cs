@@ -41,5 +41,7 @@ namespace UniversityWebApp.Repository
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.CourseStudentEnroll> CourseStudentEnrolls { get; set; }
 
         public System.Data.Entity.DbSet<UniversityWebApp.Areas.Teacher.Models.TeacherCourseResultViewModel> TeacherCourseResultViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<UniversityWebApp.Areas.Admin.Models.CourseRoomEnroll> CourseRoomEnrolls { get; set; }
     }
 }

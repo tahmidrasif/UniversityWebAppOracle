@@ -108,5 +108,12 @@ namespace UniversityWebApp.Areas.Admin.Controllers
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
         }
+
+        public ActionResult GetRoomByDeptId(int id)
+        {
+            List<Models.Room> rooms = aRoomGateway.GetAll().Where(x => x.DepartmentId == id).ToList();
+            //List<string> students= new List<string>(){"Rasif","Tahmid","Islam"};
+            return Json(new SelectList(rooms, "RoomId", "RoomNumber"), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CourseRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseStudentEnrollController.cs" />
     <Compile Include="Areas\Admin\Controllers\CourseTeacherEnrollController.cs" />
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Areas\Admin\Controllers\TeacherController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\Course.cs" />
+    <Compile Include="Areas\Admin\Models\CourseRoomEnroll.cs" />
     <Compile Include="Areas\Admin\Models\CourseStudentEnroll.cs" />
     <Compile Include="Areas\Admin\Models\CourseTeacherEnroll.cs" />
     <Compile Include="Areas\Admin\Models\Department.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Gateway\CourseGateway.cs" />
+    <Compile Include="Repository\Gateway\CourseRoomEnrollGateway.cs" />
     <Compile Include="Repository\Gateway\CourseStudentEnrollGateway.cs" />
     <Compile Include="Repository\Gateway\CourseTeacherEnrollGateway.cs" />
     <Compile Include="Repository\Gateway\DepartmentGateway.cs" />
@@ -386,6 +389,11 @@
     <Content Include="Areas\Teacher\Views\TeacherCourseResult\Details.cshtml" />
     <Content Include="Areas\Teacher\Views\TeacherCourseResult\Edit.cshtml" />
     <Content Include="Areas\Teacher\Views\TeacherCourseResult\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseRoom\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseRoom\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseRoom\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseRoom\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CourseRoom\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Image\7201237400_9f2a686a92.jpg" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
