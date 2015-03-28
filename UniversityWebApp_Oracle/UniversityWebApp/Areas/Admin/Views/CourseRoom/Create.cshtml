@@ -186,6 +186,35 @@
             });
 
 
+
+            $("#CourseId").change(function () {
+                var optionSelceted = $(this).find("option:selected");
+
+                var courseId = optionSelceted.val();
+                var data = { id: courseId };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTeachersEnrolledByCourse", "Teacher",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': courseId }),
+                    dataType: "json",
+                    success: function (teachers) {
+                        var items = "";
+                        $.each(teachers, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#TeacherId").html(items);
+
+
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+
+            });
+
         });
     </script>
 }

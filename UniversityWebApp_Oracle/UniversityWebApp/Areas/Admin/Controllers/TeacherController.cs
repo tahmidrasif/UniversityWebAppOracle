@@ -17,6 +17,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
     {
         UserGateway aUserGateway=new UserGateway();
         TeacherGateway aTeacherGateway=new TeacherGateway();
+        CourseTeacherEnrollGateway aCourseTeacherEnrollGateway=new CourseTeacherEnrollGateway();
         private List<string> designation = new List<string>()
             {
                 "Head","Associate Professor","Assistant Professor","Lecturer"
@@ -150,7 +151,18 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         public JsonResult GetTeachersByDeptId(int id)
         {
             List<Models.Teacher> teachers = aTeacherGateway.GetAll().Where(x => x.DepartmentId == id).ToList();
-            //List<string> students= new List<string>(){"Rasif","Tahmid","Islam"};
+            return Json(new SelectList(teachers, "TeacherId", "Name"), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTeachersEnrolledByCourse(int id)
+        {
+            var teacherIdList = aCourseTeacherEnrollGateway.GetAll().Where(x => x.CourseId == id).Select(x => x.TeacherId).ToList();
+            List<Models.Teacher> teachers=new List<Models.Teacher>();
+            foreach (var teacherId in teacherIdList)
+            {
+                var teacher = aTeacherGateway.GetById(teacherId);
+                teachers.Add(teacher);
+            }
             return Json(new SelectList(teachers, "TeacherId", "Name"), JsonRequestBehavior.AllowGet);
         }
     }
