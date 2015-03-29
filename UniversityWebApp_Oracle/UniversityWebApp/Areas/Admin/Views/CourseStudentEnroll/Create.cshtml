@@ -90,7 +90,6 @@
 
                 var departmentId = optionSelceted.val();
                 var data = { id: departmentId };
-                alert(departmentId);
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("GetStudentByDeptId", "Student",new { area = "Admin" })',
@@ -105,7 +104,6 @@
                         });
 
                         $("#StudentId").html(items);
-                        alert("In Success");
 
                     },
                     error: function (xhr) { alert("Something is wrong"); }

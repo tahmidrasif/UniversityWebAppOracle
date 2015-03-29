@@ -74,12 +74,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ErrorMsg = "Credit Overflow";
-            //if (ModelState.IsValid)
-            //{
-            //    db.CourseTeacherEnrolls.Add(courseteacherenroll);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+
             ViewBag.TeacherId = new SelectList(aTeacherGateway.GetAll(), "TeacherId", "Name");
             ViewBag.CourseId = new SelectList(aCourseGateway.GetAll(), "CourseId", "Name");
             ViewBag.Departments = new SelectList(aDepartmentGateway.GetAll(), "DepartmentId", "Name");
@@ -125,24 +120,21 @@ namespace UniversityWebApp.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseTeacherEnroll courseteacherenroll = db.CourseTeacherEnrolls.Find(id);
-            if (courseteacherenroll == null)
-            {
-                return HttpNotFound();
-            }
-            return View(courseteacherenroll);
-        }
+            aCourseTeacherEnrollGateway.Delete(id);
 
-        // POST: /Admin/CourseTeacherEnroll/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CourseTeacherEnroll courseteacherenroll = db.CourseTeacherEnrolls.Find(id);
-            db.CourseTeacherEnrolls.Remove(courseteacherenroll);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //// POST: /Admin/CourseTeacherEnroll/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    CourseTeacherEnroll courseteacherenroll = db.CourseTeacherEnrolls.Find(id);
+        //    db.CourseTeacherEnrolls.Remove(courseteacherenroll);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

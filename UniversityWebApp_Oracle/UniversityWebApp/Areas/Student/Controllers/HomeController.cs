@@ -7,10 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using UniversityWebApp.Areas.Admin.Models;
+using UniversityWebApp.Areas.Student.Models;
 using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Student.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class HomeController : Controller
     {
         StudentGateway aStudentGateway=new StudentGateway();
@@ -20,7 +22,7 @@ namespace UniversityWebApp.Areas.Student.Controllers
         CourseGateway aCourseGateway=new CourseGateway();
         //
         // GET: /Student/Home/
-        [Authorize(Roles = "Student")]
+        
         public ActionResult Index()
         {
             var user = (User)Session["User"];
@@ -36,7 +38,26 @@ namespace UniversityWebApp.Areas.Student.Controllers
             return RedirectToAction("LogOut","Home",new {area=""});
         }
 
-      
+
+
+        public ActionResult ViewCourse(int id)
+        {
+            var courseEnrolls = aCourseStudentEnrollGateway.GetAll().Where(x => x.StudentId == id).ToList();
+            List<Course> courses=new List<Course>();
+            List<double> numbers=new List<double>();
+            List<NumberViewModel> list=new List<NumberViewModel>();
+            foreach (var enroll in courseEnrolls)
+            {
+                NumberViewModel aNumberViewModel = new NumberViewModel();
+                var course = aCourseGateway.GetById(enroll.CourseId);
+                aNumberViewModel.CourseName = course.Name;
+                aNumberViewModel.Credit = course.Credit;
+                aNumberViewModel.Number = enroll.Score;
+                list.Add(aNumberViewModel);
+            }
+
+            return View(list);
+        }
 
         public ActionResult Edit(int? id)
         {

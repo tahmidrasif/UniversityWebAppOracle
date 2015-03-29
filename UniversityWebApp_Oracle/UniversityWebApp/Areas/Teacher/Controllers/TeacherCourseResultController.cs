@@ -14,6 +14,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Teacher.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class TeacherCourseResultController : Controller
     {
         private MyDbContext db = new MyDbContext();
@@ -57,18 +58,20 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
                 aCourseTeacherEnrollGateway.GetAll().Where(x => x.TeacherId == id).Select(x => x.CourseId).ToList();
             var courseList = new List<Course>();
             var studentList = new List<Admin.Models.Student>();
+
             foreach (var i in enrolledCourseId)
             {
-                var aCourse = aCourseGateway.GetAll().FirstOrDefault(x => x.CourseId == i);
-                var aStudentId =
+                var aCourse = aCourseGateway.GetById(i);
+                var studentsId =
                     aCourseStudentEnrollGateway.GetAll()
                         .Where(x => x.CourseId == i)
-                        .Select(x => x.StudentId)
-                        .FirstOrDefault();
-                var student = aStudentGateway.GetAll().FirstOrDefault(x => x.StudentId == aStudentId);
+                        .Select(x => x.StudentId).ToList();
+
+                studentList.AddRange(studentsId.Select(aStudentId => aStudentGateway.GetById(aStudentId)));
                 courseList.Add(aCourse);
-                studentList.Add(student);
+
             }
+
             ViewBag.CourseId = new SelectList(courseList, "CourseId", "Name");
             ViewBag.StudentId = new SelectList(studentList, "StudentId", "Name");
         }

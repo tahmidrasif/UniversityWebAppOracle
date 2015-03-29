@@ -190,6 +190,7 @@ E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Oracle.ManagedDataAccess.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Oracle.ManagedDataAccess.EntityFramework.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Owin.dll
+E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Rotativa.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\System.Web.Helpers.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\System.Web.Mvc.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\System.Web.Optimization.dll
@@ -221,7 +222,6 @@ E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Microsoft.Owin.Security.Google.xml
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.csprojResolveAssemblyReference.cache
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.pdb
-E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.csprojResolveAssemblyReference.cache
-E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Rotativa.dll

@@ -14,6 +14,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ResultViewModelController : Controller
     {
         private MyDbContext db = new MyDbContext();
@@ -42,7 +43,6 @@ namespace UniversityWebApp.Areas.Admin.Controllers
                 aResult.RegistraitionNumber = student.RegistrationNo;
                 aResult.CGPA = student.Cgpa;
                 aResult.DepartmentName = aDepartmentGateway.GetById(student.DepartmentId).Name;
-                Session["Result"] = aResult;
                 return PartialView("_ResultPartial", aResult);
 
 
@@ -59,10 +59,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
             //return View("Result",hell);
             return PartialView("_ResultPartial",aResult);
         }
-        public ActionResult Result(string a)
-        {
-            return View(new Result());
-        }
+        
         //public ActionResult Details(int? id)
         //{
         //    if (id == null)

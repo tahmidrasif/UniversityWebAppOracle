@@ -10,6 +10,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Teacher.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class HomeController : Controller
     {
         //
@@ -19,7 +20,7 @@ namespace UniversityWebApp.Areas.Teacher.Controllers
         TeacherGateway aTeacherGateway=new TeacherGateway();
         UserGateway aUserGateway=new UserGateway();
         DepartmentGateway aDepartmentGateway=new DepartmentGateway();
-        [Authorize(Roles = "Teacher")]
+        
         public ActionResult Index()
         {
             SetViewModel();

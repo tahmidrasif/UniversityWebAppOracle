@@ -4,10 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <h2>Student</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 
 
 <div id="StudentTableContainer">
@@ -23,7 +19,7 @@
         $(function () {
 
             $('#StudentTableContainer').jtable({
-                title: 'Teacher Table',
+                title: 'Student Table',
                 paging: true,
                 pageSize: 10,
                 sorting: true,

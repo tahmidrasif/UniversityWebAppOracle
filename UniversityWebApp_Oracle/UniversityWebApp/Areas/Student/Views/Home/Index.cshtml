@@ -23,7 +23,8 @@
     <br />
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.StudentId }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("View My Courses", "ViewCourse", new { id = Model.StudentId })
+        
     </p>
 
 </div>

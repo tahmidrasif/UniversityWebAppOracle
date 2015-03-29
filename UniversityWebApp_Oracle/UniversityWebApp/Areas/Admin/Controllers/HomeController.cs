@@ -7,6 +7,7 @@ using UniversityWebApp.Repository.Gateway;
 
 namespace UniversityWebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         UserGateway aUserGateway = new UserGateway();
@@ -15,7 +16,7 @@ namespace UniversityWebApp.Areas.Admin.Controllers
         TeacherGateway  aTeacherGateway=new TeacherGateway();
         //
         // GET: /Admin/Home/
-        [Authorize(Roles = "Admin")]
+        
         public ActionResult Index()
         {
             GetCountValue();
