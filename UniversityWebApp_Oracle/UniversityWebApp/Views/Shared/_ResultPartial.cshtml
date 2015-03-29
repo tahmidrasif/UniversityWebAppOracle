@@ -1,0 +1,58 @@
+﻿@model UniversityWebApp.Areas.Admin.ViewModel.Result
+
+
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Button for smallest screens -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="index.html">
+                <img src="~/Content/images/1400568941.jpg" style="height: 70px; width: 70px; z-index: 2000" />
+            </a>
+        </div>
+
+        <!--/.nav-collapse -->
+    </div>
+</div>
+<br/>
+<h4>Result Of @Model.Name</h4>
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistraitionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistraitionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CGPA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CGPA)
+        </dd>
+
+    </dl>
+</div>
+
+
+@Html.ActionLink("Generate Pdf", "IndexNew", "ResultViewModel", Model, null)

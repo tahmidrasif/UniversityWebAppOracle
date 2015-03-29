@@ -224,3 +224,4 @@ E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.dll
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.pdb
 E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\obj\Debug\UniversityWebApp.csprojResolveAssemblyReference.cache
+E:\Mvc_Practice\UniversityWebAppOracle\UniversityWebApp_Oracle\UniversityWebApp\bin\Rotativa.dll

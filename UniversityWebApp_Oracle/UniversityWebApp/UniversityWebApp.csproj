@@ -55,6 +55,9 @@
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.1.021\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -174,6 +177,7 @@
     <Compile Include="Areas\Admin\Controllers\CourseTeacherEnrollController.cs" />
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResultViewModelController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\StudentController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeacherController.cs" />
@@ -183,6 +187,7 @@
     <Compile Include="Areas\Admin\Models\CourseStudentEnroll.cs" />
     <Compile Include="Areas\Admin\Models\CourseTeacherEnroll.cs" />
     <Compile Include="Areas\Admin\Models\Department.cs" />
+    <Compile Include="Areas\Admin\ViewModel\Result.cs" />
     <Compile Include="Areas\Admin\Models\Room.cs" />
     <Compile Include="Areas\Admin\Models\Student.cs" />
     <Compile Include="Areas\Admin\Models\Teacher.cs" />
@@ -394,8 +399,18 @@
     <Content Include="Areas\Admin\Views\CourseRoom\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CourseRoom\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CourseRoom\Index.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Index.cshtml" />
+    <Content Include="Views\Shared\_ResultPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\_LayOut.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultViewModel\Result.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Image\7201237400_9f2a686a92.jpg" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

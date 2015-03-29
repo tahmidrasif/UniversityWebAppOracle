@@ -1,0 +1,50 @@
+﻿@model UniversityWebApp.Areas.Admin.ViewModel.Result
+
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Areas/Admin/Views/ResultViewModel/_LayOut.cshtml";
+}
+
+<h2>Result</h2>
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistraitionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistraitionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CGPA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CGPA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResultId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,59 @@
+﻿@using UniversityWebApp.Areas.Admin.ViewModel
+@using UniversityWebApp.Models
+@model UniversityWebApp.Areas.Admin.ViewModel.Result
+
+@{
+    ViewBag.Title = "Index";
+    Result aResult = (Result) Session["Result"];
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-4">@Html.DropDownList("Departments",string.Empty)</div>
+    <div class="col-md-4">@Html.DropDownList("Students",string.Empty)</div>
+</div>
+
+<div id="partialChange">
+    @Html.Partial("_ResultPartial", Model)
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            
+            $("#Departments").change(function () {
+                var optionSelceted = $(this).find("option:selected");
+
+                var departmentId = optionSelceted.val();
+                var data = { id: departmentId };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentByDeptId", "Student",new { area = "Admin" })',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ 'id': departmentId }),
+                    dataType: "json",
+                    success: function (students) {
+                        var items = "";
+                        $.each(students, function (i, item) {
+                            items += "<option value=\"" + item.Value + "\">" + item.Text + "</option>";
+
+                        });
+
+                        $("#Students").html(items);
+
+                    },
+                    error: function (xhr) { alert("Something is wrong"); }
+                });
+            });
+
+
+            $("#Students").change(function () {
+                var studentId = $("#Students").val();
+                $("#partialChange").load("/ResultViewModel/FilteredSection", { id: studentId });
+            });
+        });
+    </script>
+}
